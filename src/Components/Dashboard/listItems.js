@@ -67,14 +67,7 @@ export const mainListItems = (
       <ListItemText primary="Reports" />
     </ListItem>
     </Link>
-    <Link to ='/dashboard/e-commerce' style={linkStyle}>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="E-Commerce" />
-    </ListItem>
-    </Link>
+
   </div>
 );
 

@@ -8,7 +8,7 @@ const Footer = () => {
       {'Copyright © '}
       {new Date().getFullYear()}{' '}
      
-      Developed by Abdulla naser & Md Shohedul Islam
+      Developed by NESH-Soft
      
       {'.'}
     </Typography>

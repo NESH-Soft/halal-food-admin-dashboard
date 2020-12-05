@@ -128,22 +128,7 @@ export default function InteractiveList() {
            
             </List>
 
-            <List >
-                <ListItem divider={true}
-                className={classes.profitColor} >
-                      <MoneyIcon fontSize="small" />
-                  <ListItemText
-                    primary="Profit"
-                    
-                  />
-                  <ListItemSecondaryAction>
-                      <Typography className={classes.profitColor}>
-                      ৳ <span className={classes.profitColor} >{totalProfit ? NumberWithComma(totalProfit) : defaultValue}</span> 
-                        </Typography>
-                  </ListItemSecondaryAction>
-                </ListItem>
-           
-            </List>
+        
 
 
             <List >
@@ -163,22 +148,7 @@ export default function InteractiveList() {
            
             </List>
 
-            <List >
-                <ListItem divider={true}
-                className={classes.costColor} >
-                      <IndeterminateCheckBoxIcon fontSize="small" />
-                  <ListItemText
-                    primary="Due"
-                    
-                  />
-                  <ListItemSecondaryAction>
-                      <Typography className={classes.costColor}>
-                      ৳ <span className={classes.costColor} >{totalDue ? NumberWithComma(totalDue) : defaultValue}</span> 
-                        </Typography>
-                  </ListItemSecondaryAction>
-                </ListItem>
-           
-            </List>
+      
 
             <List >
                 <ListItem divider={true}
@@ -198,23 +168,7 @@ export default function InteractiveList() {
             </List>
 
 
-            <List className={classes.listStyle}>
-                <ListItem divider={true}
-                className={classes.costColor}>
-                      <MoneyIcon fontSize="small" />
-                  <ListItemText
-                    primary="Product Cost"
-                
-                  />
-                  <ListItemSecondaryAction>
-                      <Typography
-                      className={classes.costColor}>
-                        ৳ {totalProductCost ? NumberWithComma(totalProductCost) : 0}
-                        </Typography>
-                  </ListItemSecondaryAction>
-                </ListItem>
-           
-            </List>
+      
 
 
 

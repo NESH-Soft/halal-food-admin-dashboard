@@ -80,11 +80,7 @@ const DashboardRoutes = () => {
           path="/dashboard/reports"
           component={UpCoaming}
         />
-          <Route
-          exact
-          path="/dashboard/e-commerce"
-          component={UpCoaming}
-        />
+        
          <Route
           exact
           path="/dashboard/current-month"
