@@ -115,10 +115,9 @@ const useStyles = makeStyles((theme) => ({
       { name: 'name', title: 'Product name' },
       { name: 'image', title: 'Image' },
       { name: 'price', title: 'Price' },
-      { name: 'sellingPrice', title: 'Selling Price' },
+      { name: 'specialPrice', title: 'Special Price' },
       { name: 'stock', title: 'Stock' },
-      { name: 'unit', title: 'Unit' },
-      { name: 'description', title: 'Description' },
+      { name: 'category', title: 'Category' },
       { name: 'createdAt', title: 'Date Added' },
       { name: 'action', title: 'Action', columnFilteringEnabled: false },
     ]);
@@ -134,10 +133,9 @@ const useStyles = makeStyles((theme) => ({
           alt="product"
           /></div>),
         price: c.price,
-        sellingPrice: c.sellingPrice,
+        specialPrice: c.specialPrice,
         stock:(c.stock > 0 ? c.stock : <Typography color="error">Stock Out</Typography> ),
-        unit: c.unit,
-        description: c.description,
+        category: c.category,
         createdAt:(moment( c.createdAt).format("MMMM Do YYYY")),
         action: (<div>
            <Link to="/dashboard/product/edit-product" className={classes.linkStyle}>
@@ -157,10 +155,9 @@ const useStyles = makeStyles((theme) => ({
       { columnName: 'name', width: 150 },
       { columnName: 'image', width: '5rem'},
       { columnName: 'price', width: 90 },
-      { columnName: 'sellingPrice', width: 100 },
+      { columnName: 'specialPrice', width: 100 },
       { columnName: 'stock', width: 100 },
-      { columnName: 'unit', width: 80  },
-      { columnName: 'description', width: 150  },
+      { columnName: 'category', width: 150  },
       { columnName: 'createdAt', width: 150  },
       { columnName: 'action', width: 100 },
     ]);
@@ -217,8 +214,8 @@ const useStyles = makeStyles((theme) => ({
               <IntegratedFiltering />
               <Table />
               <VirtualTable height="auto"/>
-              
-              <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
+              <TableColumnResizing/>
+              {/* <TableColumnResizing defaultColumnWidths={defaultColumnWidths} /> */}
               <TableHeaderRow />
               <TableFilterRow />
           

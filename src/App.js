@@ -10,6 +10,7 @@ import Info from './Pages/Info';
 
 import AuthState from './context/AuthContext/AuthState';
 import ProductState from './context/ProductContext/ProductState';
+import CategoryState from './context/CategoryContext/CategoryState'
 import CustomerState from './context/CustomerContext/CustomerState'
 import InvoiceState from './context/InvoiceContext/InvoiceState'
 
@@ -21,6 +22,7 @@ function App() {
   return (
     <AuthState>
       <ProductState>
+        <CategoryState>
         <CustomerState>
           <InvoiceState>
             <BrowserRouter>
@@ -39,6 +41,7 @@ function App() {
           </BrowserRouter>
           </InvoiceState>
         </CustomerState>
+        </CategoryState>
       </ProductState>
     </AuthState>
   );
