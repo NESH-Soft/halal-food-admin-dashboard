@@ -107,9 +107,9 @@ const onSubmit = e => {
   setUploadProgress(true);
 console.log({name, price, specialPrice, stock, description,category,subCategory,productType, image})
 
-  // uploadProduct({ 
-  //   name, price, specialPrice, stock, description,category,subCategory,productType, image
-  // });
+  uploadProduct({ 
+    name, price, specialPrice, stock, description,category,subCategory,productType, image
+  });
   
   }
   
@@ -227,9 +227,7 @@ return (
           label="Sub Category"
           name="subCategory"
           onChange={(e)=>setSubCategory(e.target.value)}
-          required
-          
-        >
+          >
          
          {
             selectedCategory && selectedCategory.map((item,index)=>(

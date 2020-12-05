@@ -19,9 +19,9 @@ import {
 
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Notification from '../common/Notification'
-
+import CategoryContext from '../../context/CategoryContext/CategoryContext'
 import ProductContext from '../../context/ProductContext/ProductContext'
-
+ 
 const useStyles = makeStyles((theme) => ({
 tittle: {
     height: 60,
@@ -48,38 +48,45 @@ linkStyle:{
 }));
 
 const  EditProduct = (props) => {
-
+  const { getCategory,allCategory, } = useContext(CategoryContext)
   const { updateProduct,editForm, clearEditForm,serverMessage, success } = useContext(ProductContext)
-
+  useEffect(()=>{
+    getCategory()
+  },[])
   const classes = useStyles();
 
   const [formData, setFormData]=useState({
     _id: editForm._id,
-    name: editForm.name,
+    name:editForm.name,
     price: editForm.price,
-    sellingPrice:editForm.sellingPrice,
-    unit: editForm.unit,
+    specialPrice:editForm.specialPrice,
     stock:editForm.stock,
-    description: editForm.description,
-    image: editForm.image
+    description:editForm.description,
+    productType: editForm.productType,
+    image:editForm.image
 });
-
+const [selectedCategory,setSelectedCategory]=useState([])
+const [category,setCategory]=useState(editForm.category)
+const [subCategory,setSubCategory]=useState(editForm.subCategory)
 const onChange=e=>{setFormData({...formData,[e.target.name]:e.target.value});} 
 // const upHandler=e=>{setFormData({...formData,[e.target.name]:e.target.files[0]})}
+const { name, price, specialPrice, stock, description,productType } = formData;
 
-const { _id,name, price, sellingPrice, unit, stock, description } = formData;
-
+const handleSelect = (event) => {
+  setSelectedCategory(event.target.value.subCategory);
+  setCategory(event.target.value.name)
+};
 useEffect(() => {
   if(success){
     clearEditForm();
     setFormData({
       name:null,
       price: 0,
-      sellingPrice:0,
-      unit:"piece",
+      specialPrice:0,
       stock:0,
       description:null,
-      image:null
+      productType: null,
+
   })
     props.history.push('/dashboard/product');
 
@@ -89,16 +96,12 @@ useEffect(() => {
 
 const onSubmit = e => {
   e.preventDefault();
-
-  updateProduct({ 
-    _id,
-    name,
-    price,
-    sellingPrice,
-    unit,
-    stock,
-    description,
-  });
+console.log({ 
+    name, price, specialPrice, stock, description,category,subCategory,productType})
+  // updateProduct({ 
+  //   _id,
+  //   name, price, specialPrice, stock, description,category,subCategory,productType
+  // });
   
   }
   
@@ -129,7 +132,7 @@ return (
           <Grid container spacing={2}>
   
 
-           <Grid item xs={12}>
+          <Grid item xs={12}>
               <TextField
                 size="small"
                 variant="outlined"
@@ -162,39 +165,13 @@ return (
                 variant="outlined"
                 required
                 fullWidth
-                label="Selling Price"
-                name="sellingPrice"
-                value={sellingPrice}
+                label="specialPrice"
+                name="specialPrice"
+                value={specialPrice}
                 onChange={e=> onChange(e)}
               />
             </Grid>
-          
-
-  
-        <Grid item xs={12}>
-        <FormControl variant="outlined" className={classes.formControl}
-        style={{width:"100%"}}
-        size="small">
-        <InputLabel id="demo-simple-select-outlined-label">Unit</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          label="Unit"
-          name="unit"
-          value={unit}
-          onChange={e=> onChange(e)}
-          required
-          
-        >
-         
-          <MenuItem value='piece'>piece</MenuItem>
-          <MenuItem value='kg'>kg</MenuItem>
-          <MenuItem value='litter'>Litter</MenuItem>
-          <MenuItem value='pack'>Pack</MenuItem>
-        </Select>
-      </FormControl>
-        </Grid>
-
-        <Grid item xs={12}>
+            <Grid item xs={12}>
               <TextField
                 size="small"
                 type="number"
@@ -207,6 +184,82 @@ return (
                 onChange={e=> onChange(e)}
               />
             </Grid>
+       
+          
+
+  
+        <Grid item xs={12}>
+        <FormControl variant="outlined" className={classes.formControl}
+        style={{width:"100%"}}
+        size="small">
+        <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          label="Category"
+          name="category"
+          value={category}
+          onChange={handleSelect}
+          required
+          
+        >
+          
+          {
+            allCategory.map((item,index)=>(
+              <MenuItem value={item}>{item.name}</MenuItem>
+            ))
+          }
+       
+          
+        </Select>
+      </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+        <FormControl variant="outlined" className={classes.formControl}
+        style={{width:"100%"}}
+        size="small">
+        <InputLabel id="demo-simple-select-outlined-label">Sub Category</InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          label="Sub Category"
+          name="subCategory"
+          value={subCategory}
+          onChange={(e)=>setSubCategory(e.target.value)}
+          required
+          
+        >
+         
+         {
+            selectedCategory && selectedCategory.map((item,index)=>(
+              <MenuItem value={item.name}>{item.name}</MenuItem>
+            ))
+          }
+          
+        </Select>
+      </FormControl>
+        </Grid>
+
+
+        <Grid item xs={12}>
+        <FormControl variant="outlined" className={classes.formControl}
+        style={{width:"100%"}}
+        size="small">
+        <InputLabel id="demo-simple-select-outlined-label">Product Type</InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          label="Product Type"
+          name="productType"
+          value={productType}
+          onChange={e=> onChange(e)}
+          required
+          
+        >
+         
+          <MenuItem value='regular'>Regular</MenuItem>
+          <MenuItem value='special'>Special</MenuItem>
+          
+        </Select>
+      </FormControl>
+        </Grid>
 
             <Grid item xs={12}>
             <TextareaAutosize rows={6}
