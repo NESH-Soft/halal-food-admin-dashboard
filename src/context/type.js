@@ -58,6 +58,10 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY'
 
 
 
+export const GET_ORDERS = 'GET_ORDERS'
+
+
+
 
 
 
