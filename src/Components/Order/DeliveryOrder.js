@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import {Link} from 'react-router-dom';
 import {
@@ -78,10 +78,10 @@ const useStyles = makeStyles((theme) => ({
       paddingRight:6
     }
   }))
- const DeliveryOrder = () => {
-const customers = []
+ const DeliveredOrder = (props) => {
+const deliveredOrder = props.deliveredOrder || []
 
-
+console.log(deliveredOrder)
     const classes = useStyles()
 
     useEffect(() => {
@@ -100,32 +100,24 @@ const customers = []
       { name: 'name', title: 'Customer name' },
       { name: 'payment', title: 'Payment' },
       { name: 'address', title: 'Address' },
-      { name: 'view', title: 'View' },
-      { name: 'action', title: 'Action', columnFilteringEnabled: false },
+      { name: 'total', title: 'Total' },
+      { name: 'view', title: 'View', columnFilteringEnabled: false},
+  
     ]);
   
-    const data = customers.map((c,index) => {
+    const data = deliveredOrder.map((order,index) => {
       return {
         sl: index+1,
-        createdAt:(moment( c.createdAt).format("MMMM Do YYYY")),
-        name: c.name,
-        payment: c.payment,
-        address: c.address,
-        view:( <Link className={classes.linkStyle} to={`/dashboard/customer/${c._id}`}><Button variant="contained" size="small" color="primary">
+        createdAt:(moment( order.createdAt).format("MMMM Do YYYY")),
+        name: order.user.name,
+        payment: order.paymentId ? 'completed' : 'uncompleted',
+        address: order.shipping.line1,
+        total: order.totalPrice,
+        view:( <Link className={classes.linkStyle} to={`/dashboard/customer/${order._id}`}><Button variant="contained" size="small" color="primary">
           View
         </Button> </Link>),
   
-        action: (<div>
-          <Link to ="/dashboard/customer/edit-customer">
-          <IconButton  aria-label="edit">
-           <EditIcon/>
-          </IconButton>
-          </Link>
-          <IconButton type="button"  aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </div>)
-      }
+          }
     })
   
     const [defaultColumnWidths] = useState([
@@ -134,9 +126,10 @@ const customers = []
       { columnName: 'name', width: 140 },
       { columnName: 'payment', width: 150 },
       { columnName: 'address', width: 160 },
+      { columnName: 'total', width: 160 },
       { columnName: 'address', width: 120  },
       { columnName: 'view', width: 70  },
-      { columnName: 'action', width: 120 },
+   
     ]);
 
 
@@ -155,7 +148,7 @@ const customers = []
      <div>
        
            <Paper variant="outlined" elevation={5} className={classes.content}>
-           <h1>DeliveryOrder here</h1>
+           <h3>DeliveredOrder here</h3>
       
             <Grid
               rows={data}
@@ -166,7 +159,7 @@ const customers = []
               <Table />
               <VirtualTable height="auto"/>
               
-              <TableColumnResizing defaultColumnWidths={defaultColumnWidths} />
+              <TableColumnResizing  />
               <TableHeaderRow />
               <TableFilterRow />
           
@@ -179,4 +172,4 @@ const customers = []
         </div>
     )
 }
-export default DeliveryOrder;
+export default DeliveredOrder;

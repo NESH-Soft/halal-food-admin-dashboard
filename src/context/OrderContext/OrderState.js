@@ -4,12 +4,18 @@ import OrderContext from '../OrderContext/OrderContext';
 import OrderReducer from '../OrderContext/OrderReducer';
 
 import {
- GET_ORDERS
+ GET_ORDERS,
+ GET_SINGLE_ORDER
 } from '../type'
 
 const OrderState=(props)=> {
 const initialState={
-  orders: [],
+  orderRequest: [],
+  deliveredOrder:[],
+  activeOrder: [],
+  localSale: [],
+  allOrder:[],
+  singleOrder: [],
   success: false,
 }
 
@@ -18,13 +24,23 @@ const [state,dispatch]=useReducer(OrderReducer,initialState)
 //  get all product
 const getOrders = async () => {
 try{
-  const res = await axios.get('/api/order')
+  const res = await axios.get('/api/order/orders')
     dispatch({ type: GET_ORDERS, payload: res.data })
   
 
 }catch (err) {  
    console.log(err)
   }}
+
+  const getSingleOrder = async (id) => {
+    try{
+
+        dispatch({ type: GET_SINGLE_ORDER, payload:id})
+      
+    
+    }catch (err) {  
+       console.log(err)
+      }}
 
 //  //upload product
 // const uploadProduct= async data=>{
@@ -94,7 +110,14 @@ try{
 
     return (
         <OrderContext.Provider value={{
-          Orders: state.Orders,
+          orderRequest: state.orderRequest,
+          deliveredOrder: state.deliveredOrder,
+          activeOrder: state.activeOrder,
+          localSale: state.localSale,
+          singleOrder: state.singleOrder,
+          getSingleOrder,
+
+          
           getOrders
           
         
