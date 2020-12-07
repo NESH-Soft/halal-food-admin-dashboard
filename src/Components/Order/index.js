@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useContext} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,9 +10,8 @@ import RequestOrder from './RequestOrder';
 import DeliveryOrder from './DeliveryOrder';
 import OfflineSale from './OfflineSale';
 import CancelOrder from './CancelOrder';
-
-
-
+import ActiveOrder from './ActiveOrder'
+import OrderContext from '../../context/OrderContext/OrderContext'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -66,6 +65,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavTabs() {
+const {getOrders,orderRequest,deliveredOrder,activeOrder} = useContext(OrderContext)
+console.log(orderRequest,deliveredOrder,activeOrder)
+  useEffect(()=>{
+    getOrders()
+  },[])
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -82,20 +86,20 @@ export default function NavTabs() {
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab label="Request Order" href="/request-order" {...a11yProps(0)} />
-          <LinkTab label="Delivery Order" href="/delivery-order" {...a11yProps(1)} />
-          <LinkTab label="Offline Order" href="/offline-order" {...a11yProps(2)} />
+          <LinkTab label={`Request Order (${orderRequest.length})`} href="/request-order" {...a11yProps(0)} />
+          <LinkTab label={`Active Order (${activeOrder.length})`} href="/active-order" {...a11yProps(1)} />
+          <LinkTab label={`Delivered Order (${deliveredOrder.length})`} href="/delivery-order" {...a11yProps(2)} />
           <LinkTab label="Cancel Order" href="/cancel-order" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-          <RequestOrder/>
+          <RequestOrder orderRequest={orderRequest}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-       <DeliveryOrder/>
+      <ActiveOrder activeOrder={activeOrder}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-       <OfflineSale/>
+      <DeliveryOrder deliveredOrder={deliveredOrder}/>
       </TabPanel>
       <TabPanel value={value} index={4}>
        <CancelOrder/>

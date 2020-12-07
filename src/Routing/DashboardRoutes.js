@@ -6,7 +6,9 @@ import ChangePassword from '../Components/Auth/ChangePassword';
 import ProductList from '../Components/Product/ProductList';
 import AddProduct from '../Components/Product/AddProduct';
 import EditProduct from '../Components/Product/EditProduct';
-import Order from '../Components/Order/index'
+import Order from '../Components/Order/index';
+import RequestOrderDetails from '../Components/Order/RequestOrderDetails'
+import GetCategory from '../Components/Category/GetCategory'
 import CustomerList from '../Components/Customer/CustomerList';
 import InvoiceList from '../Components/Invoice/InvoiceList';
 import CreateInvoice from '../Components/Invoice/CreateInvoice';
@@ -50,8 +52,18 @@ const DashboardRoutes = () => {
         />
          <Route
           exact
+          path="/dashboard/category"
+          component={GetCategory}
+        />
+         <Route
+          exact
           path="/dashboard/order"
           component={Order}
+        />
+         <Route
+          exact
+          path="/dashboard/order-details/:id"
+          component={RequestOrderDetails}
         />
           <Route
           exact

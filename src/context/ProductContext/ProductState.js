@@ -9,9 +9,6 @@ import {
   UPDATE_PRODUCT,
   UPLOAD_PRODUCT,
   DELETE_PRODUCT,
-  ERROR,
-  CLEAR_ERROR,
-  CLEAR_SUCCESS,
   EDIT_FORM,
   CLEAR_EDIT_FORM,
   CLEAR_APPLICATION_STATE
@@ -23,22 +20,20 @@ const initialState={
   products: [],
   productInfo:[],
   editForm:{},
-  invoiceProducts:[],
-  serverMessage: null,
   success: false,
 }
 
 const [state,dispatch]=useReducer(ProductReducer,initialState)
 
-//  get all product by user
+//  get all product
 const getProducts = async () => {
 try{
   const res = await axios.get('/api/product')
     dispatch({ type: GET_PRODUCT, payload: res.data })
-    clearSuccess()
+  
+
 }catch (err) {  
-    dispatch({ type: ERROR, payload: err.response.data })
-    clearError();
+   console.log(err)
   }}
 
  //upload product
@@ -49,10 +44,9 @@ const uploadProduct= async data=>{
 try{
     const res= await axios.post('/api/product',formData,config)
     dispatch({ type:UPLOAD_PRODUCT, payload:res.data });
-    clearSuccess()
+ 
 }catch (err){  
-    dispatch({ type: ERROR, payload: err.response.data })
-    clearError();
+  console.log(err)
     }}
     
 
@@ -62,10 +56,9 @@ const deleteProduct = async (id)=>{
 try{
     const res=await axios.delete(`/api/product/${id}`)
     dispatch({ type:DELETE_PRODUCT, payload:res.data });
-    clearSuccess()
+
 }catch (err){  
-    dispatch({ type: ERROR, payload: err.response.data })
-    clearError();
+  console.log(err)
   }}
 
 
@@ -75,22 +68,21 @@ const updateProduct=async(product)=>{
 try {
   const res=await axios.put(`/api/product/${product._id}`,product,config)
   dispatch({ type:UPDATE_PRODUCT, payload:res.data });
-  clearSuccess()
+
     } catch (err) {
-        dispatch({ type: ERROR, payload: err.response.data })
-        clearError();
+      console.log(err)
     }
   }
 
-  //  get all info by user
+  //  get all info 
 const getAllProductInfo = async () => {
   try{
     const res = await axios.get('/api/product/info')
+    console.log(res.data)
       dispatch({ type: GET_PRODUCT_INFO, payload: res.data })
-      clearSuccess()
+
   }catch (err) {  
-      dispatch({ type: ERROR, payload: err.response.data })
-      clearError();
+    console.log(err)
     }}
 
   //edit product
@@ -103,22 +95,6 @@ const clearEditForm=()=>{
   dispatch({ type:CLEAR_EDIT_FORM }) 
 }
 
-  const clearError = () =>{
-    setTimeout(() => { 
-      dispatch({
-        type:CLEAR_ERROR,
-      })
-    }, 5000);
-  }
-
-  const clearSuccess = () =>{
-    setTimeout(() => { 
-      dispatch({
-        type:CLEAR_SUCCESS,
-      })
-    }, 3000);
-  }
-
   const clearProductState = () =>{
       dispatch({
         type:CLEAR_APPLICATION_STATE,
@@ -126,14 +102,11 @@ const clearEditForm=()=>{
   
   }
 
-
-
     return (
         <ProductContext.Provider value={{
           products: state.products,
           productInfo:state.productInfo,
           editForm: state.editForm,
-          serverMessage: state.serverMessage,
           success:state.success,
           getProducts,
           getAllProductInfo,
@@ -142,8 +115,7 @@ const clearEditForm=()=>{
           editFormFun,
           clearEditForm,
           deleteProduct,
-          clearProductState
-       
+        
     }}>
       {props.children}
     </ProductContext.Provider >

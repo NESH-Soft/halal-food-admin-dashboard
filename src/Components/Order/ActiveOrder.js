@@ -78,10 +78,10 @@ const useStyles = makeStyles((theme) => ({
       paddingRight:6
     }
   }))
- const RequestOrder = (props) => {
-const orderRequest = props.orderRequest || []
+ const ActiveOrder = (props) => {
+const activeOrder = props.activeOrder || []
 
-console.log(orderRequest)
+console.log(activeOrder)
     const classes = useStyles()
 
     useEffect(() => {
@@ -105,7 +105,7 @@ console.log(orderRequest)
   
     ]);
   
-    const data = orderRequest.map((order,index) => {
+    const data = activeOrder.map((order,index) => {
       return {
         sl: index+1,
         createdAt:(moment( order.createdAt).format("MMMM Do YYYY")),
@@ -113,7 +113,7 @@ console.log(orderRequest)
         payment: order.paymentId ? 'completed' : 'uncompleted',
         address: order.shipping.line1,
         total: order.totalPrice,
-        view:( <Link className={classes.linkStyle} to={`/dashboard/order-details/${order._id}`}><Button variant="contained" size="small" color="primary">
+        view:( <Link className={classes.linkStyle} to={`/dashboard/customer/${order._id}`}><Button variant="contained" size="small" color="primary">
           View
         </Button> </Link>),
   
@@ -148,7 +148,7 @@ console.log(orderRequest)
      <div>
        
            <Paper variant="outlined" elevation={5} className={classes.content}>
-           <h3>Order Request here</h3>
+           <h3>Active Order here here</h3>
       
             <Grid
               rows={data}
@@ -172,4 +172,4 @@ console.log(orderRequest)
         </div>
     )
 }
-export default RequestOrder;
+export default ActiveOrder;
