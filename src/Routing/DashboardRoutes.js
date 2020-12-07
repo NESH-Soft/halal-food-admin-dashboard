@@ -7,6 +7,7 @@ import ProductList from '../Components/Product/ProductList';
 import AddProduct from '../Components/Product/AddProduct';
 import EditProduct from '../Components/Product/EditProduct';
 import Order from '../Components/Order/index'
+import GetCategory from '../Components/Category/GetCategory'
 import CustomerList from '../Components/Customer/CustomerList';
 import InvoiceList from '../Components/Invoice/InvoiceList';
 import CreateInvoice from '../Components/Invoice/CreateInvoice';
@@ -47,6 +48,11 @@ const DashboardRoutes = () => {
           exact
           path="/dashboard/product/edit-product"
           component={EditProduct}
+        />
+         <Route
+          exact
+          path="/dashboard/category"
+          component={GetCategory}
         />
          <Route
           exact

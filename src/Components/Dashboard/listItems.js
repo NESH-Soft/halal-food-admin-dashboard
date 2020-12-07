@@ -35,6 +35,14 @@ export const mainListItems = (
       <ListItemText primary="Product" />
     </ListItem>
     </Link>
+    <Link to ='/dashboard/category' style={linkStyle}>
+    <ListItem button>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon>
+      <ListItemText primary="category" />
+    </ListItem>
+    </Link>
     <Link to ='/dashboard/order' style={linkStyle}>
     <ListItem button>
       <ListItemIcon>
