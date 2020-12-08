@@ -61,6 +61,7 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY'
 export const GET_ORDERS = 'GET_ORDERS'
 export const GET_SINGLE_ORDER = 'GET_SINGLE_ORDER'
 export const CHANGE_ORDER_STATUS = 'CHANGE_ORDER_STATUS'
+export const ADD_TO_CART = 'ADD_TO_CART'
 
 
 

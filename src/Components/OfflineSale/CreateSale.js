@@ -14,18 +14,15 @@ import { makeStyles,
   TableContainer,
   TableCell,
 } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
 import NoSsr from '@material-ui/core/NoSsr';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import styled from 'styled-components';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ProductContext from '../../context/ProductContext/ProductContext'
-import InvoiceContext from '../../context/InvoiceContext/InvoiceContext'
-import CustomerContext from '../../context/CustomerContext/CustomerContext'
+import OrderContext from '../../context/OrderContext/OrderContext'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -203,16 +200,8 @@ const Listbox = styled('ul')`
  const CreateInvoice = (props) => {
   const classes = useStyles();
   const {getProducts,products} = useContext(ProductContext);
-  const {getInvoiceProducts,card,increment,decrement,createInvoice,success} = useContext(InvoiceContext);
-  useEffect(() => {
-    if(success){
-      //eslint-disable-next-line
-      props.history.push(`/dashboard/invoice/single`);
-    }
-    //eslint-disable-next-line
-  },[success])
-
-  
+  const {addToCart,cart,increment,decrement,createOfflineSale,success} = useContext(OrderContext);
+ 
   const {
     getRootProps,
     getInputProps,
@@ -236,13 +225,13 @@ const Listbox = styled('ul')`
 
 useEffect(()=>{
   getProducts();
-  getInvoiceProducts(value);
+  addToCart(value);
   //eslint-disable-next-line
 },[value])
 
 
-const BalanceArray = card.map(function(product) {
-  return product.sellingPrice*product.quantity;
+const BalanceArray = cart.map(function(product) {
+  return product.price*product.quantity;
 });
 
 const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
@@ -259,27 +248,15 @@ const onChange = e => { setFormData({ ...formData,[e.target.name]:e.target.value
 const {name,email,phone}=formData
 const paymentId = 'complete'
 const status = 'offlineSale'
-const cart = []
 const obj = {
   name,email,phone,paymentId,cart,status,totalPrice
 }
-// const invoiceObj ={
-//   customerId: invoiceCustomer ? invoiceCustomer._id : null,
-//   products:card.map(product => {
-//     return {_id: product._id, quantity: product.quantity }
-//   }),
-//   payAmount:Number(payAmount),
-//   discount,
-//   totalProductAmount,
-// }
-// const onSubmit = e =>{
-//   e.preventDefault();
 
-// }
 const onCreatOfflineSale=()=>{
 if (!obj.name || !obj.email || !obj.phone || !obj.paymentId  || !obj.cart.length || !obj.status || !obj.totalPrice) {
   return alert('please fill all field')
 }
+console.log(obj)
 //   createInvoice(invoiceObj);
 }
 
@@ -288,7 +265,7 @@ if (!obj.name || !obj.email || !obj.phone || !obj.paymentId  || !obj.cart.length
      
     <Grid container >
       <Grid item xs={12}>
-        <Paper elevation={5}  className={classes.title}>Create Sale</Paper>
+        <Paper elevation={5}  className={classes.title}>Create Offline Sale</Paper>
       </Grid>
 
       <Grid item xs={7}>
@@ -333,7 +310,7 @@ if (!obj.name || !obj.email || !obj.phone || !obj.paymentId  || !obj.cart.length
               </TableRow>
           </TableHead>
           <TableBody>
-              {card.map((product,index) => (
+              {cart.map((product,index) => (
               <TableRow key={index}>
                 <TableCell component="th" scope="row">
                   {index+1}

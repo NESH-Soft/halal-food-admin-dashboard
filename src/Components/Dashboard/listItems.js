@@ -40,7 +40,7 @@ export const mainListItems = (
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="category" />
+      <ListItemText primary="Category" />
     </ListItem>
     </Link>
     <Link to ='/dashboard/order' style={linkStyle}>
