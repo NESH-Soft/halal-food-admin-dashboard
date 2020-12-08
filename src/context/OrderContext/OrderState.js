@@ -5,7 +5,8 @@ import OrderReducer from '../OrderContext/OrderReducer';
 
 import {
  GET_ORDERS,
- GET_SINGLE_ORDER
+ GET_SINGLE_ORDER,
+ CHANGE_ORDER_STATUS
 } from '../type'
 
 const OrderState=(props)=> {
@@ -13,7 +14,7 @@ const initialState={
   orderRequest: [],
   deliveredOrder:[],
   activeOrder: [],
-  localSale: [],
+  offlineSale: [],
   allOrder:[],
   singleOrder: [],
   success: false,
@@ -41,6 +42,19 @@ try{
     }catch (err) {  
        console.log(err)
       }}
+
+  const changeOrderStatus = async (data) => {
+    const config={ header:{'Content-Type':'application/json'}}
+        try{
+          const res = await axios.put(`/api/order/change-order-status/${data._id}`,data,config)
+          console.log(res.data)
+          // dispatch({ type: GET_SINGLE_ORDER, payload: res.data})
+          getOrders()
+        }catch (err) {  
+           console.log(err)
+        }}
+    
+
 
 //  //upload product
 // const uploadProduct= async data=>{
@@ -113,11 +127,10 @@ try{
           orderRequest: state.orderRequest,
           deliveredOrder: state.deliveredOrder,
           activeOrder: state.activeOrder,
-          localSale: state.localSale,
+          offlineSale: state.offlineSale,
           singleOrder: state.singleOrder,
           getSingleOrder,
-
-          
+          changeOrderStatus,
           getOrders
           
         

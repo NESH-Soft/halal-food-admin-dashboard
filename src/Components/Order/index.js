@@ -39,6 +39,7 @@ TabPanel.propTypes = {
 };
 
 function a11yProps(index) {
+  console.log(index)
   return {
     id: `nav-tab-${index}`,
     'aria-controls': `nav-tabpanel-${index}`,
@@ -65,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavTabs() {
-const {getOrders,orderRequest,deliveredOrder,activeOrder} = useContext(OrderContext)
-console.log(orderRequest,deliveredOrder,activeOrder)
+const {getOrders,orderRequest,deliveredOrder,activeOrder,offlineSale} = useContext(OrderContext)
+
   useEffect(()=>{
     getOrders()
   },[])
@@ -75,6 +76,7 @@ console.log(orderRequest,deliveredOrder,activeOrder)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+
   };
 
   return (
@@ -89,7 +91,7 @@ console.log(orderRequest,deliveredOrder,activeOrder)
           <LinkTab label={`Request Order (${orderRequest.length})`} href="/request-order" {...a11yProps(0)} />
           <LinkTab label={`Active Order (${activeOrder.length})`} href="/active-order" {...a11yProps(1)} />
           <LinkTab label={`Delivered Order (${deliveredOrder.length})`} href="/delivery-order" {...a11yProps(2)} />
-          <LinkTab label="Cancel Order" href="/cancel-order" {...a11yProps(4)} />
+          <LinkTab label={`Offline Sale (${offlineSale.length})`} href="/offline-sale"  {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -101,8 +103,8 @@ console.log(orderRequest,deliveredOrder,activeOrder)
       <TabPanel value={value} index={2}>
       <DeliveryOrder deliveredOrder={deliveredOrder}/>
       </TabPanel>
-      <TabPanel value={value} index={4}>
-       <CancelOrder/>
+      <TabPanel value={value} index={3}>
+      <OfflineSale offlineSale={offlineSale}/>
       </TabPanel>
     </div>
   );

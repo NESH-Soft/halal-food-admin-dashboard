@@ -63,8 +63,10 @@ const useStyles = makeStyles((theme) => ({
 
 const RequestOrderDetails = (props) => {
 console.log(props.match.params.id)
-const {getSingleOrder,singleOrder} = useContext(OrderContext)
+const {getSingleOrder,singleOrder, changeOrderStatus} = useContext(OrderContext)
 const data = singleOrder[0] || []
+const s = data.status
+const _id = data._id
 const cart = data.cart || []
 
 const BalanceArray = cart.map(function(product) {
@@ -78,8 +80,8 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
 
 
     const classes = useStyles()
-    const [status, setStatus] = React.useState('');
-
+    const [status, setStatus] = React.useState(s);
+console.log(s,'s')
     useEffect(()=>{
       getSingleOrder(props.match.params.id)
     },[])
@@ -88,37 +90,16 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
     const handleChange = (event) => {
       setStatus(event.target.value);
     };
-    const TAX_RATE = 0.07;
 
-
-
-function ccyFormat(num) {
-  return `${num.toFixed(2)}`;
-}
-
-function priceRow(qty, unit) {
-  return qty * unit;
-}
-
-function createRow(name,image,category, quantity, price,) {
-  const totalCount = priceRow(quantity, price);
-  return {name,image,category, quantity, price,totalCount };
-} 
-
-function subtotal(items) {
-  return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
-}
-
-
-const rows = cart.map(item=>(
-  createRow(`${item.name}, ${item.name}, ${item.category}, ${item.quantity}, ${item.price}`)
-))
-
-
-const invoiceSubtotal = subtotal(rows);
-const invoiceTaxes = TAX_RATE * invoiceSubtotal;
-const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-
+    const requestHandleStatus = (data)=>{
+      if(!status){
+        return alert('select status')
+        
+      }
+      const da = {_id,status}
+      changeOrderStatus(da)
+      console.log(da)
+    }
  
 
     return (
@@ -190,12 +171,15 @@ const invoiceTotal = invoiceTaxes + invoiceSubtotal;
           onChange={handleChange}
         >
           
-          <MenuItem value='Active'>Active</MenuItem>
-          <MenuItem value='Delivered'>Delivered</MenuItem>
-          <MenuItem value='Cancel'>Cancel</MenuItem>
+          <MenuItem value='active'>Active</MenuItem>
+          <MenuItem value='delivered'>Delivered</MenuItem>
+          <MenuItem value='cancel'>Cancel</MenuItem>
         </Select>
    
         </Grid>
+        <Button variant="contained" onClick={()=>requestHandleStatus()} color="primary">
+                   Save
+                      </Button>
         </Grid>
       </Grid>
 
