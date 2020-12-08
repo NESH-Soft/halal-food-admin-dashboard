@@ -59,12 +59,12 @@ export const mainListItems = (
       <ListItemText primary="Customer" />
     </ListItem>
     </Link>
-    <Link to ='/dashboard/invoice/invoice-list' style={linkStyle}>
+    <Link to ='/dashboard/create-sale' style={linkStyle}>
     <ListItem button>
       <ListItemIcon>
         <ReceiptIcon />
       </ListItemIcon>
-      <ListItemText primary="Invoice" />
+      <ListItemText primary="Create Sale" />
     </ListItem>
     </Link>
     <Link to ='/dashboard/reports' style={linkStyle}>
