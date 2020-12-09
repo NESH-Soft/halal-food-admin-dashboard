@@ -67,7 +67,7 @@ const itemCount = (cartParameter)=>{
         createdAt:(moment( order.createdAt).format("MMMM Do YYYY")),
         name: order.user.name,
         payment: order.paymentId ? 'completed' : 'cash on delivery',
-        address: order.shipping.line1,
+        address: 'N/A',
         items: itemCount(order.cart),
         total: order.totalPrice,
         view:( <Link className={classes.linkStyle} to={`/dashboard/order-details/${order._id}`}><Button variant="contained" size="small" color="primary">

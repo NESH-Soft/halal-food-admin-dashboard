@@ -256,8 +256,7 @@ const onCreatOfflineSale=()=>{
 if (!obj.name || !obj.email || !obj.phone || !obj.paymentId  || !obj.cart.length || !obj.status || !obj.totalPrice) {
   return alert('please fill all field')
 }
-console.log(obj)
-//   createInvoice(invoiceObj);
+createOfflineSale(obj);
 }
 
   return (
