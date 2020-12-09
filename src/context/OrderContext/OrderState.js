@@ -6,7 +6,10 @@ import OrderReducer from '../OrderContext/OrderReducer';
 import {
  GET_ORDERS,
  GET_SINGLE_ORDER,
- CHANGE_ORDER_STATUS
+ CHANGE_ORDER_STATUS,
+ ADD_TO_CART,
+ INCREMENT,
+ DECREMENT,
 } from '../type'
 
 const OrderState=(props)=> {
@@ -17,6 +20,7 @@ const initialState={
   offlineSale: [],
   allOrder:[],
   singleOrder: [],
+  cart:[],
   success: false,
 }
 
@@ -53,74 +57,47 @@ try{
         }catch (err) {  
            console.log(err)
         }}
-    
-
-
-//  //upload product
-// const uploadProduct= async data=>{
-//     const formData = new FormData();
-//     Object.keys(data).forEach(key => formData.append(key, data[key]));
-//     const config = { headers: { 'Content-type': 'multipart/form-data' }};
-// try{
-//     const res= await axios.post('/api/product',formData,config)
-//     dispatch({ type:UPLOAD_PRODUCT, payload:res.data });
- 
-// }catch (err){  
-//   console.log(err)
-//     }}
-    
-
-
-// // delete product
-// const deleteProduct = async (id)=>{
-// try{
-//     const res=await axios.delete(`/api/product/${id}`)
-//     dispatch({ type:DELETE_PRODUCT, payload:res.data });
-
-// }catch (err){  
-//   console.log(err)
-//   }}
-
-
-// //update product
-// const updateProduct=async(product)=>{
-//   const config={ header:{'Content-Type':'application/json'}}
-// try {
-//   const res=await axios.put(`/api/product/${product._id}`,product,config)
-//   dispatch({ type:UPDATE_PRODUCT, payload:res.data });
-
-//     } catch (err) {
-//       console.log(err)
-//     }
-//   }
-
-//   //  get all info 
-// const getAllProductInfo = async () => {
-//   try{
-//     const res = await axios.get('/api/product/info')
-//     console.log(res.data)
-//       dispatch({ type: GET_PRODUCT_INFO, payload: res.data })
-
-//   }catch (err) {  
-//     console.log(err)
-//     }}
-
-//   //edit product
-// const editFormFun=(product)=>{
-//   dispatch({ type:EDIT_FORM, payload:product }) ;
-// }
-
-// //clear edit form
-// const clearEditForm=()=>{
-//   dispatch({ type:CLEAR_EDIT_FORM }) 
-// }
-
-//   const clearProductState = () =>{
-//       dispatch({
-//         type:CLEAR_APPLICATION_STATE,
-//       })
   
-//   }
+  const createOfflineSale = async (data) => {
+         const config={ header:{'Content-Type':'application/json'}}
+              try{
+                const res = await axios.post('/api/order/offline-sale',data,config)
+                console.log(res.data)
+                // dispatch({ type: GET_SINGLE_ORDER, payload: res.data})
+                getOrders()
+              }catch (err) {  
+                 console.log(err)
+              }}
+
+  const addToCart = (value) =>{
+                dispatch({ type:ADD_TO_CART, payload:value }) ;
+              }
+  const increment=(id)=>{
+          let tempCart = state.cart;
+          const selectedProduct = tempCart.find(item =>  item._id === id);
+          const index = tempCart.indexOf(selectedProduct);
+          const product = tempCart[index];
+          product.quantity = product.quantity + 1;
+          dispatch({
+            type: INCREMENT,
+            payload: tempCart
+          })
+         }
+      
+  const decrement=(id)=>{
+          let tempCart = state.cart
+          const selectedProduct = tempCart.find(item =>  item._id === id);
+          const index = tempCart.indexOf(selectedProduct);
+          const product = tempCart[index];
+          product.quantity = product.quantity - 1;
+          dispatch({
+            type: DECREMENT,
+            payload: tempCart
+          })
+          
+         }
+
+
 
     return (
         <OrderContext.Provider value={{
@@ -129,9 +106,15 @@ try{
           activeOrder: state.activeOrder,
           offlineSale: state.offlineSale,
           singleOrder: state.singleOrder,
+          cart: state.cart,
           getSingleOrder,
           changeOrderStatus,
-          getOrders
+          getOrders,
+          addToCart,
+          increment,
+          decrement,
+          createOfflineSale
+
           
         
     }}>

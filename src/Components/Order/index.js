@@ -39,7 +39,6 @@ TabPanel.propTypes = {
 };
 
 function a11yProps(index) {
-  console.log(index)
   return {
     id: `nav-tab-${index}`,
     'aria-controls': `nav-tabpanel-${index}`,
