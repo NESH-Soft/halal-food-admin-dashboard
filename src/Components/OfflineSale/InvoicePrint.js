@@ -5,7 +5,7 @@ import { Button, Paper } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import PrintIcon from '@material-ui/icons/Print';
 import { useReactToPrint } from 'react-to-print';
-import CustomerInvoice from './CustomerInvoice'
+import Invoice from './Invoice'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -36,7 +36,7 @@ class ComponentToPrint extends React.Component {
     return (
         <div>
          
-            <CustomerInvoice/>
+            <Invoice/>
          
      
         </div>
@@ -44,7 +44,7 @@ class ComponentToPrint extends React.Component {
   }
 }
  
-const SaveInvoicePrint = () => {
+const InvoicePrint = () => {
    const classes = useStyles()
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -58,7 +58,7 @@ const SaveInvoicePrint = () => {
     <div >
         <Paper variant="outlined" square  className={classes.buttonBar}> 
                   <div>
-                  <Link to ='/dashboard' className={classes.linkStyle}>
+                  <Link to ='/dashboard/invoice/invoice-list' className={classes.linkStyle}>
                       <Button variant="contained" color="primary">
                     <ArrowBackIosIcon/>
                       </Button>
@@ -77,4 +77,4 @@ const SaveInvoicePrint = () => {
     </div>
   );
 };
-export default SaveInvoicePrint
+export default InvoicePrint

@@ -6,12 +6,11 @@ import ChangePassword from '../Components/Auth/ChangePassword';
 import ProductList from '../Components/Product/ProductList';
 import AddProduct from '../Components/Product/AddProduct';
 import EditProduct from '../Components/Product/EditProduct';
-import Order from '../Components/Order/index'
+import Order from '../Components/Order/index';
+import RequestOrderDetails from '../Components/Order/RequestOrderDetails'
 import GetCategory from '../Components/Category/GetCategory'
 import CustomerList from '../Components/Customer/CustomerList';
-import InvoiceList from '../Components/Invoice/InvoiceList';
-import CreateInvoice from '../Components/Invoice/CreateInvoice';
-import Invoice from '../Components/Invoice/InvoicePrint';
+import CreateSale from '../Components/OfflineSale/CreateSale';
 import UpCoaming from '../Components/common/UpCoaming';
 import Calculator from '../Components/common/Calculator';
 import DeleteAccount from '../Components/Auth/DeleteAccount'
@@ -59,6 +58,11 @@ const DashboardRoutes = () => {
           path="/dashboard/order"
           component={Order}
         />
+         <Route
+          exact
+          path="/dashboard/order-details/:id"
+          component={RequestOrderDetails}
+        />
           <Route
           exact
           path="/dashboard/customer"
@@ -68,19 +72,10 @@ const DashboardRoutes = () => {
         
           <Route
           exact
-          path="/dashboard/invoice/create-invoice"
-          component={CreateInvoice}
+          path="/dashboard/create-sale"
+          component={CreateSale}
         />
-          <Route
-          exact
-          path="/dashboard/invoice/invoice-list"
-          component={InvoiceList}
-        />
-          <Route
-          exact
-          path="/dashboard/invoice/single"
-          component={Invoice}
-        />
+        
          <Route
           exact
           path="/dashboard/reports"

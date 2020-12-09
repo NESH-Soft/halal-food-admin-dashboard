@@ -31,9 +31,9 @@ const useStyles = makeStyles((theme) => ({
     },
  
   }))
- const RequestOrder = (props) => {
+ const ActiveOrder = (props) => {
   const classes = useStyles()
-  const orderRequest = props.orderRequest || []
+  const activeOrder = props.activeOrder || []
   const [filteringStateColumnExtensions] = useState([
       { columnName: 'action', filteringEnabled: false },
     ]);
@@ -61,7 +61,7 @@ const itemCount = (cartParameter)=>{
 }
   
   
-    const data = orderRequest.map((order,index) => {
+    const data = activeOrder.map((order,index) => {
       return {
         sl: index+1,
         createdAt:(moment( order.createdAt).format("MMMM Do YYYY")),
@@ -111,4 +111,4 @@ const itemCount = (cartParameter)=>{
         </div>
     )
 }
-export default RequestOrder;
+export default ActiveOrder;
