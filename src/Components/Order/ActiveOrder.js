@@ -65,7 +65,7 @@ const itemCount = (cartParameter)=>{
       return {
         sl: index+1,
         createdAt:(moment( order.createdAt).format("MMMM Do YYYY")),
-        name: order.user.name,
+        name: order.user && order.user.name,
         payment: order.paymentId ? 'completed' : 'cash on delivery',
         address: order.shipping.line1,
         items: itemCount(order.cart),
