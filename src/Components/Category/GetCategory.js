@@ -1,12 +1,32 @@
-import React from 'react'
+import React, {useEffect,useContext,useState} from 'react'
 import {Link} from 'react-router-dom';
-import TreeView from '@material-ui/lab/TreeView';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import TreeItem from '@material-ui/lab/TreeItem';
-import { Button,Paper,makeStyles,Typography, Grid} from '@material-ui/core';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { Button,Paper,makeStyles,TextField,Typography, Grid} from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import Modal from '@material-ui/core/Modal';
+import CategoryContext from '../../context/CategoryContext/CategoryContext'
 
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,11 +44,18 @@ const useStyles = makeStyles((theme) => ({
 
     content:{
        margin:8,
-       paddingTop:'13%',
-       flexGrow: 1,
-       textAlign: 'center',
+      //  paddingTop:'13%',
+      //  flexGrow: 1,
+      //  textAlign: 'center',
     height: '77vh',
     overflow: 'auto',
+    },
+    table: {
+      minWidth: 300,
+      
+    },
+    addCategoryStyle:{
+      display:'flex',
     },
     linkStyle:{
       textDecoration: 'none',
@@ -39,25 +66,99 @@ const useStyles = makeStyles((theme) => ({
       marginTop:'15%'
     
     },
+    modalBox: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  
    
   }))
  const UpCoaming = () => {
+  const classes = useStyles()
+  const {getCategory,allCategory,addCategory,addSubCategory,deleteCategory,deleteSubCategory} = useContext(CategoryContext)
+  useEffect(()=>{
+    getCategory()
+    // eslint-disable-next-line
+  },[])
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+const [category,setCategory]= useState('')
+const [subCategory,setSubCategory]= useState('')
+const [categoryId,setCategoryId]= useState('')
+
+const handleAddCategory = () => {
+  addCategory({name:category})
+  setCategory('')
+};
+
+const handleAddSubCategory = () => {
+  addSubCategory({_id:categoryId, name:subCategory})
+  console.log({_id:categoryId, name:subCategory})
+  setSubCategory('')
+  setCategoryId('')
+  setOpen(false);
+
+};
 
 
-    const classes = useStyles()
-    const [expanded, setExpanded] = React.useState([]);
-    const [selected, setSelected] = React.useState([]);
+  const handleDelete = (id) => {
+    deleteCategory(id)
+  };
+  const handleSubCategoryDelete = (id) => {
+    deleteSubCategory(id)
+  };
   
-    const handleToggle = (event, nodeIds) => {
-      setExpanded(nodeIds);
-    };
-  
-    const handleSelect = (event, nodeIds) => {
-      setSelected(nodeIds);
-    };
+
+ 
+
+ 
+
+  const handleOpen = (id) => {
+    setOpen(true);
+    setCategoryId(id)
+ 
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const body = (
+    <div style={modalStyle} className={classes.modalBox}>
+      <h2 id="simple-modal-title">Create Sub Create</h2>
+      <Grid className={classes.addCategoryStyle} >
+                  <Grid>
+                        <TextField
+                        size="small"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        label="Create new subcategory"
+                        name="subCategory"
+                        value={subCategory}
+                        onChange={(e)=>setSubCategory(e.target.value)}
+                      />
+                  </Grid>
+                      
+                  <Grid>
+                      <Button variant="contained"size="small" onClick={handleAddSubCategory} color="primary" >Add</Button>
+                    </Grid>
+                      
+                </Grid>
+   
+    </div>
+  );
+
  
 
     return (
+   
+   
         <div>
           <Paper variant="outlined" square  className={classes.tittle}> 
                   <div className={classes.backButton}>
@@ -71,36 +172,101 @@ const useStyles = makeStyles((theme) => ({
 
       <div>
            <Paper variant="outlined" elevation={5} className={classes.content}>
-          <div>
-          <TreeView
-      className={classes.root}
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-      expanded={expanded}
-      selected={selected}
-      onNodeToggle={handleToggle}
-      onNodeSelect={handleSelect}
-    >
-      <TreeItem nodeId="1" onClick={()=>alert('helllo')} label="Applications">
-        <TreeItem nodeId="2" onClick={()=>alert('helllo')} label="Calendar" >akdffdh</TreeItem>
-        <TreeItem nodeId="3" onClick={()=>alert('helllo')} label="Chrome" />
-        <TreeItem nodeId="4" label="Webstorm" />
-      </TreeItem>
-      <TreeItem nodeId="5" label="Documents">
-        <TreeItem nodeId="6" label="Material-UI">
-          <TreeItem nodeId="7" label="src">
-            <TreeItem nodeId="8" label="index.js" />
-            <TreeItem nodeId="9" label="tree-view.js" />
-          </TreeItem>
-        </TreeItem>
-      </TreeItem>
-    </TreeView>
-          </div>
+           <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell  align="center">Category</TableCell>
+            <TableCell  align="center">Sub Category</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+        <TableRow>
+        <TableCell  align="center">
+        <Grid className={classes.addCategoryStyle} >
+          <Grid>
+          <TextField
+            size="small"
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Create new category"
+            name="category"
+            value={category}
+            onChange={(e)=>setCategory(e.target.value)}
+            />
+           </Grid>
+          <Grid>
+          <Button variant="contained"size="small" onClick={handleAddCategory} color="primary" >
+        Add
+      </Button>
+          </Grid>
+           
+      </Grid>
+            </TableCell>
+            <TableCell  align="center">
+               
+            </TableCell>
+            
+          </TableRow>
+     
+        {
+          allCategory && allCategory.map((category,index)=>(
+            <TableRow key={index}>
+              <TableCell align="center">
+                <div>
+              <Chip
+              label={category.name}
+              clickable
+              color="primary"
+              onDelete={()=>handleDelete(category._id)} 
+             />
+              <Button variant="contained"size="small" onClick={()=>handleOpen(category._id)} color="primary" >
+              Add sub
+            </Button>
+            </div>
+     
+           </TableCell>
+              <TableCell align="center">
+             {
+              
+               category.subCategory && category.subCategory.map((sub,index)=>(
+              
+                <Chip   
+                label={sub.name}
+                clickable
+                color="primary"
+                onDelete={()=>handleSubCategoryDelete(sub._id)}
+                
+              />
+             
+            
+
+               ))}
+                 
+            
+    
+              </TableCell>
+            </TableRow>
+          ))
+        }
+          
+        </TableBody>
+      </Table>
+    </TableContainer>
           </Paper> 
         
         </div>
 
-      
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {body}
+      </Modal>
         </div>
     )
 }
