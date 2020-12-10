@@ -9,7 +9,7 @@ import TotalSale from './TotalSale'
 import TotalCustomer from './TotalCustomer';
 import TotalDue from './TotalDue';
 import ProductContext from '../../../context/ProductContext/ProductContext';
-import InvoiceContext from '../../../context/InvoiceContext/InvoiceContext';
+import OrderContext from '../../../context/OrderContext/OrderContext';
 import CustomerContext from '../../../context/CustomerContext/CustomerContext'
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,9 +31,11 @@ const useStyles = makeStyles((theme) => ({
 const Info = () => {
   const classes = useStyles();
 const {getAllProductInfo,productInfo} =useContext(ProductContext);
-const {getAllSaleInfo,saleInfo} = useContext(InvoiceContext);
+const {getAllSaleInfo,saleInfo} = useContext(OrderContext);
 const {getTotalCustomer, totalCustomer} = useContext(CustomerContext)
+
 useEffect(()=>{
+  
   getAllProductInfo();
   getAllSaleInfo();
   getTotalCustomer();

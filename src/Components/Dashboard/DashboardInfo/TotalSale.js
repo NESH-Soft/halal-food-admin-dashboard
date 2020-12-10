@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const Budget = ({saleInfo}) => {
   const classes = useStyles();
 
-  const {totalSaleAmount,totalSoldProductQuantity,totalSoldInvoice  } = saleInfo
+  const {totalSaleAmount,totalSoldProductQuantity,totalOrder,totalProductCost  } = saleInfo
   const defaultValue = 0 
 
   return (
@@ -79,8 +79,15 @@ const Budget = ({saleInfo}) => {
            <Typography
           variant="caption"
            >
-            Total invoice <span className={classes.color}>{totalSoldInvoice ? totalSoldInvoice : defaultValue }</span>
+            Total sold <span className={classes.color}>{totalOrder ? totalOrder : defaultValue }</span>
            </Typography>
+           <Typography
+          variant="caption"
+           >
+            Total sold amount <span className={classes.color}>{totalProductCost ? totalProductCost : defaultValue }</span>
+           </Typography>
+
+           
          </Box>
        
        

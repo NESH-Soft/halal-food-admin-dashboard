@@ -51,14 +51,9 @@ const Profile = ({ user }) => {
             gutterBottom
             variant="h5"
           >
-            {user.companyName}
+            {user.name}
           </Typography>
-          <Typography
-            color="textSecondary"
-            variant="body1"
-          >
-            {user.companyOwner}
-          </Typography> 
+         
           <Typography
             color="textSecondary"
             variant="body1"

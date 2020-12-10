@@ -11,11 +11,6 @@ import {
   Grid,
   TextField,
   makeStyles,
-  TextareaAutosize,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
 } from '@material-ui/core';
 
 
@@ -29,17 +24,15 @@ const ProfileDetails = ({user}) => {
   const { updateUser, serverMessage } = useContext(AuthContext);
   const [formData, setFormData]=useState({
     _id: user._id,
-    companyName: user.companyName,
-    companyOwner: user.companyOwner,
+    name: user.name,
     email: user.email,
     phone: user.phone,
     address: user.address,
-    companyType: user.companyType,
-    description: user.description,
+  
 });
 
 
-const {_id, companyName, companyOwner, email,phone,address, companyType, description} = formData;
+const {_id, name, email,phone,address, } = formData;
 
 
 const onSubmit = e => {
@@ -47,12 +40,10 @@ const onSubmit = e => {
 
   updateUser({ 
     _id,
-    companyName,
-    companyOwner,
+    name,
     phone,
+    email,
     address,
-    companyType,
-    description,
   });
   }
   
@@ -80,29 +71,17 @@ const onSubmit = e => {
             <Grid item xs={12} sm={6}>
               <TextField
                 size="small"
-                name="companyName"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
-                label="Company Name"
+                label="Name"
                 autoFocus
-                value={companyName}
+                value={name}
                 onChange={e=> onChange(e)}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                size="small"
-                name="companyOwner"
-                variant="outlined"
-                required
-                fullWidth
-                label="Company Owner"
-                autoFocus
-                value={companyOwner}
-                onChange={e=> onChange(e)}
-              />
-            </Grid>
+         
 
         
             <Grid item xs={12}>
@@ -145,39 +124,6 @@ const onSubmit = e => {
               />
             </Grid>
           
-        <Grid item xs={12}>
-        <FormControl variant="outlined" className={classes.formControl}
-        style={{width:"100%"}}
-        size="small">
-        <InputLabel id="demo-simple-select-outlined-label">Business Type</InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          label="Business Type"
-          name="companyType"
-          value={companyType}
-          onChange={e=> onChange(e)}
-          required
-          
-        >
-         
-          <MenuItem value='electronic'>Electronic</MenuItem>
-          <MenuItem value='mobile'>Mobile</MenuItem>
-          <MenuItem value='grocery'>Grocery</MenuItem>
-          <MenuItem value='hardware'>Hardware</MenuItem>
-          <MenuItem value='pharmacy'>Pharmacy</MenuItem>
-        </Select>
-      </FormControl>
-        </Grid>
-            <Grid item xs={12}>
-            <TextareaAutosize rows={6}
-             style={{width:"100%"}}
-            placeholder="Type something about your company"
-            name="description"
-            value={description}
-            onChange={e=> onChange(e)}
-            required
-             />
-            </Grid>
           </Grid>
          
       

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TotalProductCost = ({productInfo}) => {
-
+console.log(productInfo)
 const classes = useStyles();
 const {totalProductCost, totalProduct, totalProductType } = productInfo
 const defaultValue = 0
