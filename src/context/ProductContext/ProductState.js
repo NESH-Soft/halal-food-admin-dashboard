@@ -77,7 +77,6 @@ try {
 const getAllProductInfo = async () => {
   try{
     const res = await axios.get('/api/product/product-info')
-    console.log(res.data)
       dispatch({ type: GET_PRODUCT_INFO, payload: res.data })
 
   }catch (err) {  

@@ -138,7 +138,7 @@ export default function InteractiveList() {
                 className={classes.profitColor} >
                       <MoneyIcon fontSize="small" />
                   <ListItemText
-                    primary="Invoice"
+                    primary="Completed order"
                     
                   />
                   <ListItemSecondaryAction>
