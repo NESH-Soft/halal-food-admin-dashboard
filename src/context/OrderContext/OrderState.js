@@ -1,5 +1,6 @@
 import React,{useReducer} from 'react';
 import axios from 'axios';
+import notificationHandle from '../../utils/notificationHandle';
 import OrderContext from '../OrderContext/OrderContext';
 import OrderReducer from '../OrderContext/OrderReducer';
 
@@ -54,8 +55,9 @@ try{
           console.log(res.data)
           // dispatch({ type: GET_SINGLE_ORDER, payload: res.data})
           getOrders()
+          notificationHandle("Update success","success",1000)
         }catch (err) {  
-           console.log(err)
+          notificationHandle(err.response.data.msg,"danger",1000)
         }}
   
   const createOfflineSale = async (data) => {
@@ -65,8 +67,9 @@ try{
                 console.log(res.data)
                 // dispatch({ type: GET_SINGLE_ORDER, payload: res.data})
                 getOrders()
+                notificationHandle("Create success","success",1000)
               }catch (err) {  
-                 console.log(err)
+                notificationHandle(err.response.data.msg,"danger",1000)
               }}
 
   const addToCart = (value) =>{

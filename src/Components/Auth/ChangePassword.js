@@ -10,7 +10,7 @@ import {
   CssBaseline,
   TextField,
   Paper} from '@material-ui/core';
-import Notification from '../common/Notification';
+
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import AuthContext from '../../context/AuthContext/AuthContext'
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   }))
  const ChangePassword = () => {
   
-  const {  changePassword, serverMessage} = useContext(AuthContext);
+  const {  changePassword} = useContext(AuthContext);
 
   const classes = useStyles();
 
@@ -99,7 +99,7 @@ const onSubmit = e =>{
            <Paper variant="outlined" elevation={5} className={classes.content}>
           
 <Container component="main" maxWidth="xs">
-      { serverMessage && <Notification severity='error' message={serverMessage}/> }
+   
       <Paper elevation={5}>
       <CssBaseline />
       <div className={classes.paper}>

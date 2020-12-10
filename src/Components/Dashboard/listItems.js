@@ -79,41 +79,41 @@ export const mainListItems = (
   </div>
 );
 
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <Link to ='/dashboard/current-month' style={linkStyle}>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItem>
-    </Link>
-    <Link to ='/dashboard/last-quarter' style={linkStyle}>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItem>
-    </Link>
-    <Link to ='/dashboard/year-end' style={linkStyle}>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
-    </Link>
+// export const secondaryListItems = (
+//   <div>
+//     <ListSubheader inset>Saved reports</ListSubheader>
+//     <Link to ='/dashboard/current-month' style={linkStyle}>
+//     <ListItem button>
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Current month" />
+//     </ListItem>
+//     </Link>
+//     <Link to ='/dashboard/last-quarter' style={linkStyle}>
+//     <ListItem button>
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Last quarter" />
+//     </ListItem>
+//     </Link>
+//     <Link to ='/dashboard/year-end' style={linkStyle}>
+//     <ListItem button>
+//       <ListItemIcon>
+//         <AssignmentIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Year-end sale" />
+//     </ListItem>
+//     </Link>
 
-    <Link to ='/dashboard/calculator' style={linkStyle}>
-    <ListItem button>
-      <ListItemIcon>
-        <FeaturedPlayListIcon />
-      </ListItemIcon>
-      <ListItemText primary="Calculator" />
-    </ListItem>
-    </Link>
-  </div>
-);
+//     <Link to ='/dashboard/calculator' style={linkStyle}>
+//     <ListItem button>
+//       <ListItemIcon>
+//         <FeaturedPlayListIcon />
+//       </ListItemIcon>
+//       <ListItemText primary="Calculator" />
+//     </ListItem>
+//     </Link>
+//   </div>
+// );

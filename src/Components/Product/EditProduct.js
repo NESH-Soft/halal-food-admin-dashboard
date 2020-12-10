@@ -18,7 +18,6 @@ import {
 } from '@material-ui/core';
 
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import Notification from '../common/Notification'
 import CategoryContext from '../../context/CategoryContext/CategoryContext'
 import ProductContext from '../../context/ProductContext/ProductContext'
  
@@ -49,7 +48,7 @@ linkStyle:{
 
 const  EditProduct = (props) => {
   const { getCategory,allCategory, } = useContext(CategoryContext)
-  const { updateProduct,editForm, clearEditForm,serverMessage, success } = useContext(ProductContext)
+  const { updateProduct,editForm, clearEditForm, success } = useContext(ProductContext)
   useEffect(()=>{
     getCategory()
   },[])
@@ -120,7 +119,6 @@ return (
              
            </Paper >
     <Container component="main" maxWidth="md">
-    {serverMessage && <Notification severity="success" message={serverMessage}/> }
       <Paper elevation={5} >
       <CssBaseline />
       <div className={classes.paper}>
