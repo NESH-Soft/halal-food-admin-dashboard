@@ -1,5 +1,6 @@
 import React,{useReducer} from 'react';
 import axios from 'axios';
+import notificationHandle from '../../utils/notificationHandle';
 import ProductContext from '../ProductContext/ProductContext';
 import ProductReducer from '../ProductContext/ProductReducer';
 
@@ -30,8 +31,6 @@ const getProducts = async () => {
 try{
   const res = await axios.get('/api/product')
     dispatch({ type: GET_PRODUCT, payload: res.data })
-  
-
 }catch (err) {  
    console.log(err)
   }}
@@ -44,9 +43,9 @@ const uploadProduct= async data=>{
 try{
     const res= await axios.post('/api/product',formData,config)
     dispatch({ type:UPLOAD_PRODUCT, payload:res.data });
- 
+    notificationHandle("Upload success","success",1000)
 }catch (err){  
-  console.log(err)
+  notificationHandle(err.response.data.msg,"danger",1000)
     }}
     
 
@@ -56,9 +55,9 @@ const deleteProduct = async (id)=>{
 try{
     const res=await axios.delete(`/api/product/${id}`)
     dispatch({ type:DELETE_PRODUCT, payload:res.data });
-
+    notificationHandle("delete success","danger",1000)
 }catch (err){  
-  console.log(err)
+  notificationHandle(err.response.data.msg,"danger",1000)
   }}
 
 
@@ -68,9 +67,9 @@ const updateProduct=async(product)=>{
 try {
   const res=await axios.put(`/api/product/${product._id}`,product,config)
   dispatch({ type:UPDATE_PRODUCT, payload:res.data });
-
+  notificationHandle("Update success","success",1000)
     } catch (err) {
-      console.log(err)
+      notificationHandle(err.response.data.msg,"danger",1000)
     }
   }
 

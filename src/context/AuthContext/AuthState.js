@@ -2,7 +2,8 @@ import React,{useReducer} from 'react';
 import axios from 'axios';
 import AuthContext from '../AuthContext/AuthContext';
 import AuthReducer from '../AuthContext/AuthReducer';
-import setAuthToken from '../../utils/setAuthToken'
+import setAuthToken from '../../utils/setAuthToken';
+import notificationHandle from '../../utils/notificationHandle'
 import {
   SUCCESS_LOGIN,
   LOAD_USER,
@@ -31,7 +32,7 @@ const loadUser = async () => {
       const res = await axios.get('/api/admin');
       dispatch({ type: LOAD_USER, payload: res.data })
     } catch (err) {
-     console.log(err)
+     notificationHandle('something went wrong',"danger",1000)
   }
 }
 }
@@ -44,9 +45,10 @@ const config = { header:{ 'Content-Type':'application/json' } }
 try{
   const res = await axios.post('/api/admin/login', data, config)
   dispatch({ type: SUCCESS_LOGIN, payload: res.data });
-  loadUser();  
+  loadUser();
+  notificationHandle("Login success","success",1000)
 }catch (err){
-console.log(err)
+notificationHandle(err.response.data.msg,"danger",1000)
 }
 
 }
@@ -73,8 +75,9 @@ const config={ header:{'Content-Type':'application/json' }}
   try {  
     const res=await axios.put(`/api/admin/update/${user._id}`,user,config)
       dispatch({ type:UPDATE_USER, payload:res.data }) 
+      notificationHandle("Update success","success",1000)
   } catch (err) {
-console.log(err)
+    notificationHandle(err.response.data.msg,"danger",1000)
   }
 }
 
@@ -124,6 +127,7 @@ const resetPassword = async (data)=>{
 // log out  test complete
 const logout=()=>{
     dispatch({type: LOGOUT})
+    notificationHandle("Logout success","success",1000)
   }
 
 
@@ -141,7 +145,6 @@ const logout=()=>{
             forgoRequest,
             resetPassword,
             logout,
-          
     }}>
       {props.children}
     </AuthContext.Provider >

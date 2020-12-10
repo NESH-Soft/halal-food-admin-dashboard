@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from '../../../../context/AuthContext/AuthContext'
-import Notification from '../../../common/Notification'
 import {
   Box,
   Button,
@@ -53,7 +52,7 @@ const onSubmit = e => {
   return (
   
     <div>
-        {serverMessage && <Notification severity='error' message={serverMessage}/> }
+      
     <form className={classes.form} onSubmit={e=>onSubmit(e)}>
       <Card>
         <CardHeader

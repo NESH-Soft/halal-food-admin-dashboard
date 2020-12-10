@@ -1,6 +1,8 @@
 
 import React from 'react';
 import {BrowserRouter, Route, Switch } from 'react-router-dom'
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
 import Footer from './Components/layout/Footer'
 import SignIn from './Components/Auth/SignIn'
 import ForgotPassword from './Components/Auth/ForgotPassword'
@@ -21,6 +23,7 @@ import './App.css';
 
 function App() {
   return (
+    
     <AuthState>
       <ProductState>
         <CategoryState>
@@ -29,6 +32,7 @@ function App() {
           <InvoiceState>
             <BrowserRouter>
               <div className='App'>
+              <ReactNotification />
                 <Switch>
                   <Route exact  path="/" component={SignIn}/>
                   <PrivateRoute exact  path="/info" component={Info}/>

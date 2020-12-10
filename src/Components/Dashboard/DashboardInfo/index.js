@@ -53,9 +53,9 @@ useEffect(()=>{
       <Grid item >
       <TotalCustomer totalCustomer={totalCustomer} />
       </Grid>
-      <Grid item >
+      {/* <Grid item >
       <TotalDue totalDue={saleInfo}/>
-      </Grid>
+      </Grid> */}
   
     </Grid>
   </div>
