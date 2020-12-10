@@ -25,7 +25,7 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import Notification from '../common/Notification';
+
 import ProductContext from '../../context/ProductContext/ProductContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -185,7 +185,7 @@ const useStyles = makeStyles((theme) => ({
        
            <Paper variant="outlined" elevation={5} className={classes.content}>
            <h1>All product here</h1>
-           {serverMessage && <Notification severity='success' message={serverMessage}/> }
+         
            <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>

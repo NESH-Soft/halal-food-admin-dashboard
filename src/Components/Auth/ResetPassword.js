@@ -11,7 +11,6 @@ import {
   CssBaseline,
   TextField,
   Paper} from '@material-ui/core';
-import Notification from '../common/Notification';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import AuthContext from '../../context/AuthContext/AuthContext'
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   }))
  const ResetPassword = (props) => {
     const token = props.match.params.token
-   const { resetPassword, serverMessage,isAuthenticated} = useContext(AuthContext);
+   const { resetPassword,isAuthenticated} = useContext(AuthContext);
    const classes = useStyles();
  
 
@@ -102,7 +101,7 @@ const [confirmPassword,setConfirmPassword]=useState('');
            <Paper variant="outlined" elevation={5} className={classes.content}>
              <Grid className={classes.details}>
 <Container component="main" maxWidth="xs">
-      { serverMessage && <Notification severity='error' message={serverMessage}/> }
+  
       <Paper elevation={5}>
       <CssBaseline />
       <div className={classes.paper}>

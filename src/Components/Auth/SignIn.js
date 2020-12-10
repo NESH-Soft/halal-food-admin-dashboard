@@ -16,7 +16,6 @@ import {
   Checkbox,
   Paper} from '@material-ui/core';
 
-import Notification from '../common/Notification';
 
 import AuthContext from '../../context/AuthContext/AuthContext';
 
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = (props) =>  {
   const authContext = useContext(AuthContext);
-  const { login, isAuthenticated,loadUser, serverMessage} = authContext;
+  const { login, isAuthenticated,loadUser} = authContext;
 
   const classes = useStyles();
 
@@ -72,7 +71,6 @@ const onChange = e => { setFormData({ ...formData,[e.target.name]:e.target.value
     <div>
     <Navbar/>
     <Container component="main" maxWidth="xs">
-      { serverMessage && <Notification severity='error' message={serverMessage}/> }
       <Paper elevation={5}>
       <CssBaseline />
       <div className={classes.paper}>

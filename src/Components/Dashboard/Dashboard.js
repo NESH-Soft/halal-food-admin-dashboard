@@ -19,7 +19,7 @@ import Menu from '@material-ui/core/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '@material-ui/core/Avatar';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems } from './listItems';
 import DashboardRoutes from '../../Routing/DashboardRoutes';
 import AuthContext from '../../context/AuthContext/AuthContext';
 
@@ -217,7 +217,7 @@ const handleLogOut =()=>{
         <Divider />
         <List>{mainListItems}</List>
         <Divider />
-        <List>{secondaryListItems}</List>
+        {/* <List>{secondaryListItems}</List> */}
       </Drawer>
 
       <main className={classes.content}>
