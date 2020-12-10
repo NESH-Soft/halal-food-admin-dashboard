@@ -26,33 +26,46 @@ const useStyles = makeStyles((theme) => ({
 
 const RecentSale=({recentSale})=>{
   const classes = useStyles();
+  const itemCount = (cartParameter)=>{
+    const quantityArray = cartParameter.map(function(product) {
+      return product.quantity;
+    });
+    const totalItem = quantityArray.reduce(function(accumulator, currentValue) {
+      return accumulator + currentValue;;
+    }, 0);
+    return totalItem
+  
+  }
+    
   return (
     <React.Fragment>
 
 {!recentSale.length ? (<div className={classes.spinner}>
-        <Typography>No recent sale</Typography>
+        <Typography>No recent oder</Typography>
         </div>)
          : (<div>
 
-      <Title>Recent Sales</Title>
+      <Title>Recent order</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>Customer Name</TableCell>
-            <TableCell>Total Amount</TableCell>
-            <TableCell>Pay amount</TableCell>
-            <TableCell>Due</TableCell>
+            <TableCell>Address</TableCell>
+            <TableCell>Payment</TableCell>
+            <TableCell>total Item</TableCell>
+            <TableCell>Total</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {recentSale.map((row) => (
-            <TableRow key={row._id}>
-              <TableCell>{(moment(row.createdAt).format("MMMM Do YYYY"))}</TableCell>
-          <TableCell>{row.customer.name}</TableCell>
-              <TableCell>{row.totalAmountAfterDiscount}</TableCell>
-              <TableCell>{row.payAmount}</TableCell>
-              <TableCell align="right">{row.due}</TableCell>
+          {recentSale.map((order,index) => (
+            <TableRow key={index}>
+           <TableCell>{(moment(order.createdAt).format("MMMM Do YYYY"))}</TableCell>
+          <TableCell>{order.user && order.user.name}</TableCell>
+              <TableCell>{order.shipping && order.shipping.line1}</TableCell>
+              <TableCell>{order.paymentId ? 'completed' : 'cash on delivery'}</TableCell>
+              <TableCell>{itemCount(order.cart)}</TableCell>
+              <TableCell >{order.totalPrice}</TableCell>
             </TableRow>
           ))}
         </TableBody>

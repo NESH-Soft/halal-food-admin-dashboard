@@ -14,7 +14,8 @@ import MoneyIcon from '@material-ui/icons/Money';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import  NumberWithComma from '../../../utils/NumberWithComma';
-import InvoiceContext from '../../../context/InvoiceContext/InvoiceContext'
+import OrderContext from '../../../context/OrderContext/OrderContext';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -50,12 +51,12 @@ color: '#01579b',
 export default function InteractiveList() {
   const classes = useStyles();
 
-  const {getSaleInfoByDay,recentSaleByDay,} =useContext(InvoiceContext);
+  const {getOrderInfoByDay,orderInfoByDay,} =useContext(OrderContext);
 
   const [day, setDay] = React.useState(0);
   
   useEffect(()=>{
-    getSaleInfoByDay(day);
+    getOrderInfoByDay(day);
     //eslint-disable-next-line
   },[day]);
   
@@ -63,7 +64,7 @@ export default function InteractiveList() {
     setDay(e.target.value)
   
   };
-  const {totalProductCost,totalProfit,totalSaleAmount,totalSoldProduct,totalSoldInvoice,currentCash,totalDue }  = recentSaleByDay || {}
+  const {totalSaleAmount,totalSoldProduct,totalSoldInvoice,totalProductCost }  = orderInfoByDay || {}
  const defaultValue = 0;
   return (
     <div className={classes.root}>
@@ -128,25 +129,7 @@ export default function InteractiveList() {
            
             </List>
 
-        
-
-
-            <List >
-                <ListItem divider={true}
-                className={classes.soldColor} >
-                      <AccountBalanceWalletIcon fontSize="small" />
-                  <ListItemText
-                    primary="Current Cash"
-                    
-                  />
-                  <ListItemSecondaryAction>
-                      <Typography className={classes.soldColor}>
-                      ৳ <span className={classes.soldColor} >{currentCash ? NumberWithComma(currentCash) : defaultValue}</span> 
-                        </Typography>
-                  </ListItemSecondaryAction>
-                </ListItem>
-           
-            </List>
+      
 
       
 

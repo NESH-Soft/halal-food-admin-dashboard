@@ -4,7 +4,10 @@ import {
   ADD_TO_CART,
   INCREMENT,
   DECREMENT,
-  GET_SALE_INFO
+  GET_SALE_INFO,
+  GET_RECENT_SALE,
+  GET_TODAY_SALE,
+  GET_SALE_INFO_BY_DAY
 } from '../type'
 
 export default (state,action)=>{
@@ -48,6 +51,22 @@ export default (state,action)=>{
                     saleInfo:action.payload.orderInfo
                                       
                     }  
+    case GET_RECENT_SALE:
+               return{
+                ...state,
+                recentSale: action.payload.recentOrder,
+                       
+               }
+    case GET_TODAY_SALE:
+              return{
+                ...state,
+                todayOrder: action.payload.todayOrder,  
+      }
+    case GET_SALE_INFO_BY_DAY:
+        return{
+          ...state,
+          orderInfoByDay: action.payload.orderByDay,  
+        }
         default:
             return state
     }

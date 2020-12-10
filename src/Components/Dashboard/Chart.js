@@ -3,21 +3,20 @@ import moment from 'moment'
 import { useTheme } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from './Title';
-import InvoiceContext from '../../context/InvoiceContext/InvoiceContext'
-
+import OrderContext from '../../context/OrderContext/OrderContext'
 
 export default function Chart() {
 
   const theme = useTheme();
-  const {getTodaySale,todaySale} = useContext(InvoiceContext)
-
+  const {getTodayOrder,todayOrder} = useContext(OrderContext)
+console.log(todayOrder)
   useEffect(()=>{
-    getTodaySale();
+    getTodayOrder();
     // eslint-disable-next-line
   },[])
 
-const data = todaySale.map((t)=>{
- return  {time:moment(t.createdAt).format('h:mm'), amount: t.totalAmountAfterDiscount}
+const data = todayOrder.map((t)=>{
+ return  {time:moment(t.createdAt).format('h:mm'), amount: t.totalPrice}
 })
 
 
@@ -41,7 +40,7 @@ const data = todaySale.map((t)=>{
               position="left"
               style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
             >
-              Sales (৳)
+              Order (৳)
             </Label>
           </YAxis>
           <Line type="monotone" dataKey="amount" stroke={theme.palette.primary.main} dot={false} />
