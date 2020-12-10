@@ -22,9 +22,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { mainListItems, secondaryListItems } from './listItems';
 import DashboardRoutes from '../../Routing/DashboardRoutes';
 import AuthContext from '../../context/AuthContext/AuthContext';
-import CustomerContext from '../../context/CustomerContext/CustomerContext';
-import ProductContext from '../../context/ProductContext/ProductContext';
-import InvoiceContext from '../../context/InvoiceContext/InvoiceContext'
+
 
 const drawerWidth = 240;
 
@@ -123,9 +121,7 @@ export default function Dashboard(props) {
   const url = props.match
 
   const { user,logout } = useContext(AuthContext);
-  const {clearCustomerState} = useContext(CustomerContext);
-  const {clearProductState} = useContext(ProductContext);
-  const {clearInvoiceState} = useContext(InvoiceContext);
+ 
 
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -146,9 +142,6 @@ export default function Dashboard(props) {
    
   };
 const handleLogOut =()=>{
-  clearInvoiceState();
-  clearProductState();
-  clearCustomerState();
   logout()
 }
   const menuId = 'primary-search-account-menu';
@@ -188,7 +181,7 @@ const handleLogOut =()=>{
           </Typography>
           <Typography component="h3" color="inherit" noWrap className={classes.title}>{moment().format("dddd, MMMM Do YYYY")}</Typography>
           <Typography component="h3" color="inherit" noWrap className={classes.title}>
-            {user.companyName}
+            {user.name}
           </Typography>
     
           <IconButton color="inherit">

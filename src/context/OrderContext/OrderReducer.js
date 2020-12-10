@@ -3,7 +3,8 @@ import {
   GET_SINGLE_ORDER,
   ADD_TO_CART,
   INCREMENT,
-  DECREMENT
+  DECREMENT,
+  GET_SALE_INFO
 } from '../type'
 
 export default (state,action)=>{
@@ -35,13 +36,18 @@ export default (state,action)=>{
                 ...state,
                 cart:action.payload               
                   }
-              case  DECREMENT:
+    case  DECREMENT:
                   return{
                   ...state,
                   cart:action.payload
                                     
                   }     
-         
+    case  GET_SALE_INFO:
+                    return{
+                    ...state,
+                    saleInfo:action.payload.orderInfo
+                                      
+                    }  
         default:
             return state
     }

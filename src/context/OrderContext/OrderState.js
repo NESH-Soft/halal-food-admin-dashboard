@@ -10,6 +10,7 @@ import {
  ADD_TO_CART,
  INCREMENT,
  DECREMENT,
+ GET_SALE_INFO
 } from '../type'
 
 const OrderState=(props)=> {
@@ -21,6 +22,7 @@ const initialState={
   allOrder:[],
   singleOrder: [],
   cart:[],
+  saleInfo:[],
   success: false,
 }
 
@@ -31,7 +33,6 @@ const getOrders = async () => {
 try{
   const res = await axios.get('/api/order/orders')
     dispatch({ type: GET_ORDERS, payload: res.data })
-  
 
 }catch (err) {  
    console.log(err)
@@ -42,7 +43,6 @@ try{
 
         dispatch({ type: GET_SINGLE_ORDER, payload:id})
       
-    
     }catch (err) {  
        console.log(err)
       }}
@@ -97,6 +97,16 @@ try{
           
          }
 
+  //  get all sales info by user
+  const getAllSaleInfo = async () => {
+    try{
+      const res = await axios.get('/api/order/order-info')
+        dispatch({ type: GET_SALE_INFO, payload: res.data })
+      
+    }catch (err) {  
+      console.log(err)
+      
+      }}
 
 
     return (
@@ -107,13 +117,15 @@ try{
           offlineSale: state.offlineSale,
           singleOrder: state.singleOrder,
           cart: state.cart,
+          saleInfo:state.saleInfo,
           getSingleOrder,
           changeOrderStatus,
           getOrders,
           addToCart,
           increment,
           decrement,
-          createOfflineSale
+          createOfflineSale,
+          getAllSaleInfo
 
           
         

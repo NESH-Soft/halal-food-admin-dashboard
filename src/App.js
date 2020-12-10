@@ -31,10 +31,10 @@ function App() {
               <div className='App'>
                 <Switch>
                   <Route exact  path="/" component={SignIn}/>
-                  <Route exact  path="/info" component={Info}/>
-                  <Route exact  path="/dashboard" component={Dashboard}/>
-                  <Route exact  path="/dashboard/:comp" component={Dashboard}/>
-                  <Route exact  path="/dashboard/:comp/:cop" component={Dashboard}/>
+                  <PrivateRoute exact  path="/info" component={Info}/>
+                  <PrivateRoute exact  path="/dashboard" component={Dashboard}/>
+                  <PrivateRoute exact  path="/dashboard/:comp" component={Dashboard}/>
+                  <PrivateRoute exact  path="/dashboard/:comp/:cop" component={Dashboard}/>
                   
                 </Switch>
 
