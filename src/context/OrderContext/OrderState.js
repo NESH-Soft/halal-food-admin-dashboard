@@ -11,7 +11,10 @@ import {
  ADD_TO_CART,
  INCREMENT,
  DECREMENT,
- GET_SALE_INFO
+ GET_SALE_INFO,
+ GET_RECENT_SALE,
+ GET_SALE_INFO_BY_DAY,
+ GET_TODAY_SALE
 } from '../type'
 
 const OrderState=(props)=> {
@@ -24,6 +27,9 @@ const initialState={
   singleOrder: [],
   cart:[],
   saleInfo:[],
+  recentSale:[],
+  todayOrder:[],
+  orderInfoByDay:{},
   success: false,
 }
 
@@ -111,6 +117,37 @@ try{
       
       }}
 
+    //  get recent info by user
+    const getRecentSale = async () => {
+      try{
+        const res = await axios.get('/api/order/recent')
+          dispatch({ type: GET_RECENT_SALE, payload: res.data })
+       
+      }catch (err) {  
+          console.log(err)
+        }}
+
+    //  get recent info by day
+    const getOrderInfoByDay = async (day) => {
+      try{
+        const res = await axios.get(`/api/order/day?day=${day}`)
+          dispatch({ type: GET_SALE_INFO_BY_DAY, payload: res.data })
+        
+      }catch (err) {  
+      console.log(err)
+        }}
+
+    //  get recent info by day
+    const getTodayOrder = async () => {
+      try{
+        const res = await axios.get('/api/order/today')
+          dispatch({ type: GET_TODAY_SALE, payload: res.data })
+        
+      }catch (err) {  
+        console.log(err)
+    
+        }}
+
 
     return (
         <OrderContext.Provider value={{
@@ -119,8 +156,11 @@ try{
           activeOrder: state.activeOrder,
           offlineSale: state.offlineSale,
           singleOrder: state.singleOrder,
+          recentSale: state.recentSale,
           cart: state.cart,
           saleInfo:state.saleInfo,
+          todayOrder:state.todayOrder,
+          orderInfoByDay:state.orderInfoByDay,
           getSingleOrder,
           changeOrderStatus,
           getOrders,
@@ -128,10 +168,10 @@ try{
           increment,
           decrement,
           createOfflineSale,
-          getAllSaleInfo
-
-          
-        
+          getAllSaleInfo,
+          getRecentSale,
+          getTodayOrder,
+          getOrderInfoByDay
     }}>
       {props.children}
     </OrderContext.Provider >

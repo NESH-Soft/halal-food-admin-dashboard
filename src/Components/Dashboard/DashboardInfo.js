@@ -5,10 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Info from './DashboardInfo/index'
 import FilterByDay from './DashboardInfoFilterByDay/FilterByDay'
-import Chart from './Chart'
-import RecentSale from './RecentSale'
-import InvoiceContext from '../../context/InvoiceContext/InvoiceContext'
-
+import Chart from './Chart';
+import RecentSale from './RecentSale';
+import OrderContext from '../../context/OrderContext/OrderContext';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -43,9 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const DashboardInfo = () => {
     const classes = useStyles();
-
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-const {getRecentSale,recentSale} = useContext(InvoiceContext)
+    const {getRecentSale,recentSale} = useContext(OrderContext)
 
 useEffect(()=>{
   getRecentSale()
