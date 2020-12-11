@@ -65,15 +65,15 @@ const useStyles = makeStyles((theme) => ({
   }))
  const ForgotPassword = (props) => {
  
-   const { forgoRequest,success} = useContext(AuthContext);
+   const { forgoRequest} = useContext(AuthContext);
    const classes = useStyles();
  
-   useEffect(() => {
-    if(success){
-      props.history.push('/info');
-    }
-    // eslint-disable-next-line
-  },[success])
+  //  useEffect(() => {
+  //   if(success){
+  //     props.history.push('/info');
+  //   }
+  //   // eslint-disable-next-line
+  // },[success])
 
 const [email,setEmail]=useState('');
 
