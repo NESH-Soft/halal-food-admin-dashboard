@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = (props) =>  {
   const authContext = useContext(AuthContext);
-  const { login, isAuthenticated,loadUser} = authContext;
+  const { login,loadUser} = authContext;
 
   const classes = useStyles();
 

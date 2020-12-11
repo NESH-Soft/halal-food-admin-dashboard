@@ -21,7 +21,7 @@ const data = todayOrder.map((t)=>{
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>Today Activity</Title>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -39,7 +39,7 @@ const data = todayOrder.map((t)=>{
               position="left"
               style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
             >
-              Order (৳)
+               (¥)
             </Label>
           </YAxis>
           <Line type="monotone" dataKey="amount" stroke={theme.palette.primary.main} dot={false} />

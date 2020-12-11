@@ -11,8 +11,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import MoneyIcon from '@material-ui/icons/Money';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import  NumberWithComma from '../../../utils/NumberWithComma';
 import OrderContext from '../../../context/OrderContext/OrderContext';
 
@@ -64,7 +62,7 @@ export default function InteractiveList() {
     setDay(e.target.value)
   
   };
-  const {totalSaleAmount,totalSoldProduct,totalSoldInvoice,totalProductCost }  = orderInfoByDay || {}
+  const {totalSaleAmount,totalSoldProduct,totalSoldInvoice }  = orderInfoByDay || {}
  const defaultValue = 0;
   return (
     <div className={classes.root}>
@@ -122,7 +120,7 @@ export default function InteractiveList() {
                       <Typography
                       className={classes.saleColor}>
                        
-                       ৳ {totalSaleAmount ? NumberWithComma(totalSaleAmount) : defaultValue}
+                       ¥ {totalSaleAmount ? NumberWithComma(totalSaleAmount) : defaultValue}
                         </Typography>
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -143,7 +141,7 @@ export default function InteractiveList() {
                   />
                   <ListItemSecondaryAction>
                       <Typography className={classes.profitColor}>
-                      ৳ <span className={classes.profitColor} >{totalSoldInvoice ? totalSoldInvoice : defaultValue}</span> 
+                      ¥ <span className={classes.profitColor} >{totalSoldInvoice ? totalSoldInvoice : defaultValue}</span> 
                         </Typography>
                   </ListItemSecondaryAction>
                 </ListItem>

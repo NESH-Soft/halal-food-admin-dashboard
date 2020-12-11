@@ -1,5 +1,4 @@
 import React, { useState,useContext,useEffect } from 'react';
-import {Link} from 'react-router-dom';
 // /* eslint-disable no-use-before-define */
 import { makeStyles,
   TextField, 
@@ -200,7 +199,7 @@ const Listbox = styled('ul')`
  const CreateInvoice = (props) => {
   const classes = useStyles();
   const {getProducts,products} = useContext(ProductContext);
-  const {addToCart,cart,increment,decrement,createOfflineSale,success} = useContext(OrderContext);
+  const {addToCart,cart,increment,decrement,createOfflineSale} = useContext(OrderContext);
  
   const {
     getRootProps,

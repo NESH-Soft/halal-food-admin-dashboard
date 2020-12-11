@@ -52,7 +52,8 @@ const  AddProduct = (props) => {
   const { uploadProduct, success } = useContext(ProductContext)
   const classes = useStyles();
 useEffect(()=>{
-  getCategory()
+  getCategory();
+  // eslint-disable-next-line
 },[])
 
   const [formData, setFormData]=useState({

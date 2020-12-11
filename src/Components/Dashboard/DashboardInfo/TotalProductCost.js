@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TotalProductCost = ({productInfo}) => {
-console.log(productInfo)
 const classes = useStyles();
 const {totalProductCost, totalProduct, totalProductType } = productInfo
 const defaultValue = 0
@@ -55,7 +54,7 @@ const defaultValue = 0
               color="error"
               variant="h5"
             >
-              ৳{totalProductCost ? NumberWithComma(totalProductCost) : defaultValue}
+              ¥{totalProductCost ? NumberWithComma(totalProductCost) : defaultValue}
             </Typography>
           </Grid>
           <Grid item>

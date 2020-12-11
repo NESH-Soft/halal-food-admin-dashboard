@@ -56,7 +56,7 @@ const Budget = ({saleInfo}) => {
                className={classes.color}
                variant="h5"
              >
-               ৳{totalSaleAmount ? NumberWithComma(totalSaleAmount) : defaultValue }
+               ¥{totalSaleAmount ? NumberWithComma(totalSaleAmount) : defaultValue }
              </Typography>
            </Grid>
            <Grid item>
@@ -81,10 +81,13 @@ const Budget = ({saleInfo}) => {
            >
             Total sold <span className={classes.color}>{totalOrder ? totalOrder : defaultValue }</span>
            </Typography>
+          </Box>
+
+           <Box>
            <Typography
           variant="caption"
            >
-            Total sold amount <span className={classes.color}>{totalProductCost ? totalProductCost : defaultValue }</span>
+            Total sold amount <span className={classes.color}>¥ {totalProductCost ? totalProductCost : defaultValue }</span>
            </Typography>
 
            

@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -41,11 +40,11 @@ const RecentSale=({recentSale})=>{
     <React.Fragment>
 
 {!recentSale.length ? (<div className={classes.spinner}>
-        <Typography>No recent oder</Typography>
+        <Typography>No recent activity</Typography>
         </div>)
          : (<div>
 
-      <Title>Recent order</Title>
+      <Title>Recent Activity</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -63,7 +62,7 @@ const RecentSale=({recentSale})=>{
             <TableRow key={index}>
            <TableCell>{(moment(order.createdAt).format("MMMM Do YYYY"))}</TableCell>
           <TableCell>{order.user && order.user.name}</TableCell>
-              <TableCell>{order.shipping && order.shipping.line1}</TableCell>
+              <TableCell>{order.shipping ? order.shipping.line1 : 'N/A'}</TableCell>
               <TableCell>{order.paymentId ? 'completed' : 'cash on delivery'}</TableCell>
               <TableCell>{order.status}</TableCell>
               <TableCell>{itemCount(order.cart)}</TableCell>
@@ -73,8 +72,8 @@ const RecentSale=({recentSale})=>{
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link to ="/dashboard/invoice/invoice-list" color="primary" >
-          See more sale
+        <Link to ="/dashboard/order" color="primary" >
+          See more 
         </Link>
       </div>
       </div>)

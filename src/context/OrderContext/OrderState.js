@@ -7,7 +7,6 @@ import OrderReducer from '../OrderContext/OrderReducer';
 import {
  GET_ORDERS,
  GET_SINGLE_ORDER,
- CHANGE_ORDER_STATUS,
  ADD_TO_CART,
  INCREMENT,
  DECREMENT,

@@ -1,8 +1,6 @@
 import React,{useEffect, useContext} from 'react'
-import Skeleton from '@material-ui/lab/Skeleton';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -62,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const RequestOrderDetails = (props) => {
-console.log(props.match.params.id)
 const {getSingleOrder,singleOrder, changeOrderStatus} = useContext(OrderContext)
 const data = singleOrder[0] || []
 const s = data.status
@@ -81,9 +78,9 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
 
     const classes = useStyles()
     const [status, setStatus] = React.useState(s);
-console.log(s,'s')
     useEffect(()=>{
       getSingleOrder(props.match.params.id)
+      // eslint-disable-next-line
     },[])
 
   
@@ -98,7 +95,7 @@ console.log(s,'s')
       }
       const da = {_id,status}
       changeOrderStatus(da)
-      console.log(da)
+   
     }
  
 
@@ -106,7 +103,7 @@ console.log(s,'s')
         <div>
           <Paper variant="outlined" square  className={classes.tittle}> 
                   <div className={classes.backButton}>
-                  <Link to ='/dashboard' className={classes.linkStyle}>
+                  <Link to ='/dashboard/order' className={classes.linkStyle}>
                       <Button variant="contained" color="primary">
                     <ArrowBackIosIcon/>Back
                       </Button>
@@ -160,26 +157,67 @@ console.log(s,'s')
         </Grid>
          
         </Grid>
+
+
+
         <Grid item xs={6} sm={3}>
+
           <Paper className={classes.paper}>Status</Paper>
           <Grid className={classes.titleContent}>
-        <InputLabel id="demo-controlled-open-select-label">{data.status}</InputLabel>
+            {data.status}
+  
+      <div>
+      {
+          data.status === 'delivered' || data.status === 'offlineSale' ? (
+            <div>
+
+            </div>
+          ) : (
+            <div>
+               <InputLabel id="demo-controlled-open-select-label"></InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           value={status}
           onChange={handleChange}
         >
-          
-          <MenuItem value='active'>Active</MenuItem>
-          <MenuItem value='delivered'>Delivered</MenuItem>
-          <MenuItem value='cancel'>Cancel</MenuItem>
+          {
+            data.status === 'active'? (
+              <div>
+                 <MenuItem value='delivered'>Delivered</MenuItem>
+                   <MenuItem value='cancel'>Cancel</MenuItem>
+              </div>
+            ) : (
+              <div>
+              <MenuItem value='active'>Active</MenuItem>
+              <MenuItem value='delivered'>Delivered</MenuItem>
+              <MenuItem value='cancel'>Cancel</MenuItem>
+              </div>
+            )
+          }
+        
+
         </Select>
-   
-        </Grid>
+        <div>
         <Button variant="contained" onClick={()=>requestHandleStatus()} color="primary">Save
           </Button>
+        </div>
+              
+            </div>
+          )
+      }
+      </div>
+
+     
+       
+
+   
         </Grid>
+     
+        </Grid>
+
+
+
       </Grid>
 
       <div>

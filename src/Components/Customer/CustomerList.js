@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import moment from 'moment'
-import {Link} from 'react-router-dom'
 import {
   FilteringState,
   IntegratedFiltering,

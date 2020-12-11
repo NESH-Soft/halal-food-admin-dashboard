@@ -9,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import RequestOrder from './RequestOrder';
 import DeliveryOrder from './DeliveryOrder';
 import OfflineSale from './OfflineSale';
-import CancelOrder from './CancelOrder';
 import ActiveOrder from './ActiveOrder'
 import OrderContext from '../../context/OrderContext/OrderContext'
 function TabPanel(props) {
@@ -69,6 +68,7 @@ const {getOrders,orderRequest,deliveredOrder,activeOrder,offlineSale} = useConte
 
   useEffect(()=>{
     getOrders()
+    // eslint-disable-next-line
   },[])
   const classes = useStyles();
   const [value, setValue] = React.useState(0);

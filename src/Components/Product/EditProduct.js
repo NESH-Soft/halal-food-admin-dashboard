@@ -50,7 +50,8 @@ const  EditProduct = (props) => {
   const { getCategory,allCategory, } = useContext(CategoryContext)
   const { updateProduct,editForm, clearEditForm, success } = useContext(ProductContext)
   useEffect(()=>{
-    getCategory()
+    getCategory();
+    // eslint-disable-next-line
   },[])
   const classes = useStyles();
 

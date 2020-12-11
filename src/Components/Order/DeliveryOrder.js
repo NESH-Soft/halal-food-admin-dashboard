@@ -17,7 +17,7 @@ import {
   Button,
   Paper,
   makeStyles,
-  Avatar
+
   } from '@material-ui/core';
  
 
@@ -77,17 +77,7 @@ const itemCount = (cartParameter)=>{
           }
     })
   
-    const [defaultColumnWidths] = useState([
-      { columnName: 'sl', width: 50 },
-      { columnName: 'createdAt', width: 150  },
-      { columnName: 'name', width: 140 },
-      { columnName: 'payment', width: 150 },
-      { columnName: 'address', width: 160 },
-      { columnName: 'total', width: 160 },
-      { columnName: 'address', width: 120  },
-      { columnName: 'view', width: 70  },
-   
-    ]);
+ 
 
 
     return (

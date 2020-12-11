@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 const ProfileDetails = ({user}) => {
   const classes = useStyles();
 
-  const { updateUser, serverMessage } = useContext(AuthContext);
+  const { updateUser } = useContext(AuthContext);
   const [formData, setFormData]=useState({
     _id: user._id,
     name: user.name,
