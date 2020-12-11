@@ -12,7 +12,8 @@ import {
   DELETE_PRODUCT,
   EDIT_FORM,
   CLEAR_EDIT_FORM,
-  CLEAR_APPLICATION_STATE
+  CLEAR_APPLICATION_STATE,
+  CLEAR_SUCCESS
 
 } from '../type'
 
@@ -44,7 +45,8 @@ try{
     const res= await axios.post('/api/product',formData,config)
     dispatch({ type:UPLOAD_PRODUCT, payload:res.data });
     notificationHandle("Upload success","success",1000)
-}catch (err){  
+    clearSuccess()
+}catch (err){
   notificationHandle(err.response.data.msg,"danger",1000)
     }}
     
@@ -91,6 +93,13 @@ const editFormFun=(product)=>{
 //clear edit form
 const clearEditForm=()=>{
   dispatch({ type:CLEAR_EDIT_FORM }) 
+}
+
+const clearSuccess=()=>{
+  setTimeout(()=>(
+    dispatch({ type:CLEAR_SUCCESS }) 
+  ),500)
+ 
 }
 
   const clearProductState = () =>{
