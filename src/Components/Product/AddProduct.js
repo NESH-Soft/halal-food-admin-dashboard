@@ -256,6 +256,7 @@ return (
          
           <MenuItem value='regular'>Regular</MenuItem>
           <MenuItem value='special'>Special</MenuItem>
+          <MenuItem value='special'>Latest</MenuItem>
           
         </Select>
       </FormControl>
