@@ -65,9 +65,10 @@ const deleteCategory = async (id)=>{
     notificationHandle(err.response.data.msg,"danger",1000)
     }}
 
-const deleteSubCategory = async (id)=>{
+const deleteSubCategory = async (catCatId,subCatId)=>{
       try{
-          const res=await axios.put(`/api/category/subcategory-delete/${id}`)
+        console.log(catCatId,subCatId)
+          const res=await axios.put(`/api/category/subcategory-delete/${catCatId}/${subCatId}`)
           console.log(res)
           getCategory()
           notificationHandle("delete success","danger",1000)

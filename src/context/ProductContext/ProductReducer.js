@@ -6,7 +6,8 @@ import {
     DELETE_PRODUCT,
     EDIT_FORM,
     CLEAR_EDIT_FORM,
-    CLEAR_APPLICATION_STATE
+    CLEAR_APPLICATION_STATE,
+    CLEAR_SUCCESS
 } from '../type'
 
 export default (state,action)=>{
@@ -26,21 +27,21 @@ export default (state,action)=>{
             case UPLOAD_PRODUCT:
                 return{
                 ...state,
-                products: [...state.products, action.payload.product],
+                products: [...state.products, action.payload.newProduct],
                 success:action.payload.success,
            
                 }
                 case DELETE_PRODUCT:
                 return {
                 ...state,
-                products: state.products.filter(product => product._id !==  action.payload.product._id),
+                products: state.products.filter(product => product._id !==  action.payload.deletedProduct._id),
               
                 }
 
             case  UPDATE_PRODUCT:
                 return{
                 ...state,
-                products:state.products.map(product=>product._id === action.payload.product._id ? action.payload.product:product),
+                products:state.products.map(product=>product._id === action.payload.updatedProduct._id ? action.payload.updatedProduct:product),
                 success:action.payload.success,
              
                 }
@@ -69,6 +70,11 @@ export default (state,action)=>{
                 serverMessage: null,
                 success: false,
             }
+            case CLEAR_SUCCESS:
+                return{
+                    ...state,
+                    success:false
+                }
 
         default:
             return state

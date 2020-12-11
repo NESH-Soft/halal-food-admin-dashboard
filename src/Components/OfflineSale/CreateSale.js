@@ -231,7 +231,7 @@ useEffect(()=>{
 
 
 const BalanceArray = cart.map(function(product) {
-  return product.price*product.quantity;
+  return product.specialPrice*product.quantity;
 });
 
 const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
@@ -315,7 +315,7 @@ createOfflineSale(obj);
                   {index+1}
                 </TableCell>
                 <TableCell align="right">{product.name}</TableCell>
-                <TableCell align="right">৳{product.price}</TableCell>
+                <TableCell align="right">৳{product.specialPrice}</TableCell>
                 <TableCell align="right">
                 <div>
 
@@ -326,7 +326,7 @@ createOfflineSale(obj);
                
                 </div>
                  </TableCell>
-                <TableCell align="right">৳{product.price*product.quantity}</TableCell>
+                <TableCell align="right">৳{product.specialPrice*product.quantity}</TableCell>
               </TableRow>
             ))}
           </TableBody>

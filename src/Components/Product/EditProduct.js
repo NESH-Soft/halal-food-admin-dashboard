@@ -69,7 +69,7 @@ const [category,setCategory]=useState(editForm.category)
 const [subCategory,setSubCategory]=useState(editForm.subCategory)
 const onChange=e=>{setFormData({...formData,[e.target.name]:e.target.value});} 
 // const upHandler=e=>{setFormData({...formData,[e.target.name]:e.target.files[0]})}
-const { name, price, specialPrice, stock, description,productType } = formData;
+const {_id, name, price, specialPrice, stock, description,productType } = formData;
 
 const handleSelect = (event) => {
   setSelectedCategory(event.target.value.subCategory);
@@ -95,12 +95,12 @@ useEffect(() => {
 
 const onSubmit = e => {
   e.preventDefault();
-console.log({ 
+console.log({ _id,
     name, price, specialPrice, stock, description,category,subCategory,productType})
-  // updateProduct({ 
-  //   _id,
-  //   name, price, specialPrice, stock, description,category,subCategory,productType
-  // });
+  updateProduct({ 
+    _id,
+    name, price, specialPrice, stock, description,category,subCategory,productType
+  });
   
   }
   
@@ -195,7 +195,6 @@ return (
           labelId="demo-simple-select-outlined-label"
           label="Category"
           name="category"
-          value={category}
           onChange={handleSelect}
           required
           
@@ -221,9 +220,7 @@ return (
           label="Sub Category"
           name="subCategory"
           value={subCategory}
-          onChange={(e)=>setSubCategory(e.target.value)}
-          required
-          
+          onChange={(e)=>setSubCategory(e.target.value)} 
         >
          
          {

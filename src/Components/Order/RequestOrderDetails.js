@@ -70,7 +70,7 @@ const _id = data._id
 const cart = data.cart || []
 
 const BalanceArray = cart.map(function(product) {
-  return product.price*product.quantity;
+  return product.specialPrice*product.quantity;
 });
 
 const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
@@ -177,9 +177,8 @@ console.log(s,'s')
         </Select>
    
         </Grid>
-        <Button variant="contained" onClick={()=>requestHandleStatus()} color="primary">
-                   Save
-                      </Button>
+        <Button variant="contained" onClick={()=>requestHandleStatus()} color="primary">Save
+          </Button>
         </Grid>
       </Grid>
 
@@ -204,16 +203,13 @@ console.log(s,'s')
           <TableCell  align="right"> <Avatar src={row.image} variant="square" className={classes.square}></Avatar></TableCell>
           <TableCell align="right">{row.category}</TableCell>
           <TableCell align="right">{row.quantity}</TableCell>
-          <TableCell align="right">{row.price}</TableCell>
-          <TableCell align="right">{row.quantity * row.price}</TableCell>
+          <TableCell align="right">{row.specialPrice}</TableCell>
+          <TableCell align="right">{row.quantity * row.specialPrice}</TableCell>
           </TableRow>
           ))}
 
           <TableRow>
-            {/* <TableCell  />
-            <TableCell  />
-            <TableCell  />
-            <TableCell  /> */}
+         
 
             <TableCell align="right" colSpan={5}>Subtotal</TableCell>
             <TableCell align="right">{totalPrice}</TableCell>

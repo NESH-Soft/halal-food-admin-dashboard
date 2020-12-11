@@ -53,6 +53,7 @@ const RecentSale=({recentSale})=>{
             <TableCell>Customer Name</TableCell>
             <TableCell>Address</TableCell>
             <TableCell>Payment</TableCell>
+            <TableCell>Status</TableCell>
             <TableCell>total Item</TableCell>
             <TableCell>Total</TableCell>
           </TableRow>
@@ -64,6 +65,7 @@ const RecentSale=({recentSale})=>{
           <TableCell>{order.user && order.user.name}</TableCell>
               <TableCell>{order.shipping && order.shipping.line1}</TableCell>
               <TableCell>{order.paymentId ? 'completed' : 'cash on delivery'}</TableCell>
+              <TableCell>{order.status}</TableCell>
               <TableCell>{itemCount(order.cart)}</TableCell>
               <TableCell >{order.totalPrice}</TableCell>
             </TableRow>

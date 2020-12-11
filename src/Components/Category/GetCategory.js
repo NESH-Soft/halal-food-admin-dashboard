@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
       
     },
     addCategoryStyle:{
-      display:'flex',
+      textAlign:"center"
     },
     linkStyle:{
       textDecoration: 'none',
@@ -108,8 +108,8 @@ const handleAddSubCategory = () => {
   const handleDelete = (id) => {
     deleteCategory(id)
   };
-  const handleSubCategoryDelete = (id) => {
-    deleteSubCategory(id)
+  const handleSubCategoryDelete = (catId,subCatId) => {
+    deleteSubCategory(catId,subCatId)
   };
   
 
@@ -170,64 +170,69 @@ const handleAddSubCategory = () => {
                 </div> 
            </Paper > 
 
+           <div style={{marginLeft:"25%"}}>
+           <Grid className={classes.addCategoryStyle} >
+
+<Grid item xs={12} sm={6}>
+<TextField
+  size="small"
+  variant="outlined"
+  margin="normal"
+  required
+  fullWidth
+  label="Create new category"
+  name="category"
+  value={category}
+  onChange={(e)=>setCategory(e.target.value)}
+  />
+</Grid>
+<Grid item xs={12} sm={6}>
+<Button variant="contained" size="small" onClick={handleAddCategory} color="primary">Add</Button>
+</Grid>
+</Grid>
+           </div>
+
       <div>
            <Paper variant="outlined" elevation={5} className={classes.content}>
+
+
+   
            <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell  align="center">Category</TableCell>
+            <TableCell  align="center">Action</TableCell>
             <TableCell  align="center">Sub Category</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-        <TableRow>
-        <TableCell  align="center">
-        <Grid className={classes.addCategoryStyle} >
-          <Grid>
-          <TextField
-            size="small"
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Create new category"
-            name="category"
-            value={category}
-            onChange={(e)=>setCategory(e.target.value)}
-            />
-           </Grid>
-          <Grid>
-          <Button variant="contained"size="small" onClick={handleAddCategory} color="primary" >
-        Add
-      </Button>
-          </Grid>
-           
-      </Grid>
-            </TableCell>
-            <TableCell  align="center">
-               
-            </TableCell>
-            
-          </TableRow>
-     
         {
           allCategory && allCategory.map((category,index)=>(
             <TableRow key={index}>
               <TableCell align="center">
-                <div>
+                <Grid>
               <Chip
               label={category.name}
               clickable
               color="primary"
               onDelete={()=>handleDelete(category._id)} 
              />
-              <Button variant="contained"size="small" onClick={()=>handleOpen(category._id)} color="primary" >
-              Add sub
-            </Button>
-            </div>
+              
+            </Grid>
      
            </TableCell>
+   
+              <TableCell align="center">
+            
+              <Button variant="contained" size="small" onClick={()=>handleOpen(category._id)} color="primary" >
+              Add sub
+            </Button>
+
+           </TableCell>
+
+
+
               <TableCell align="center">
              {
               
@@ -237,7 +242,7 @@ const handleAddSubCategory = () => {
                 label={sub.name}
                 clickable
                 color="primary"
-                onDelete={()=>handleSubCategoryDelete(sub._id)}
+                onDelete={()=>handleSubCategoryDelete(category._id,sub._id)}
                 
               />
              
@@ -271,3 +276,6 @@ const handleAddSubCategory = () => {
     )
 }
 export default UpCoaming;
+   
+
+

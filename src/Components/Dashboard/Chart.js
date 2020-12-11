@@ -9,7 +9,6 @@ export default function Chart() {
 
   const theme = useTheme();
   const {getTodayOrder,todayOrder} = useContext(OrderContext)
-console.log(todayOrder)
   useEffect(()=>{
     getTodayOrder();
     // eslint-disable-next-line
