@@ -1,4 +1,4 @@
-import React,{useEffect, useContext} from 'react'
+import React,{ useContext} from 'react'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -9,9 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {Link} from 'react-router-dom'
 import { Button,Paper,makeStyles,Typography,Grid} from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import moment from 'moment';
 import OrderContext from '../../context/OrderContext/OrderContext'
 
 
@@ -37,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
     },
 
     content:{
-   
-       flexGrow: 1,
+     margin:"5px",
+     padding:"20px",
+      flexGrow: 1,
        textAlign: 'center',
 
     overflow: 'auto',
@@ -55,12 +55,16 @@ const useStyles = makeStyles((theme) => ({
     table: {
       minWidth: 700,
     },
+    signature:{
+      textAlign:'center',
+      paddingTop:'5%'
+    }
    
   }))
 
 
-const RequestOrderDetails = (props) => {
-const {getSingleOrder,singleOrder, changeOrderStatus} = useContext(OrderContext)
+const RequestOrderDetails = () => {
+const {singleOrder, changeOrderStatus} = useContext(OrderContext)
 const data = singleOrder[0] || []
 const s = data.status
 const _id = data._id
@@ -78,10 +82,10 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
 
     const classes = useStyles()
     const [status, setStatus] = React.useState(s);
-    useEffect(()=>{
-      getSingleOrder(props.match.params.id)
-      // eslint-disable-next-line
-    },[])
+    // useEffect(()=>{
+    //   getSingleOrder(props.match.params.id)
+    //   // eslint-disable-next-line
+    // },[])
 
   
     const handleChange = (event) => {
@@ -100,29 +104,18 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
  
 
     return (
-        <div>
-          <Paper variant="outlined" square  className={classes.tittle}> 
-                  <div className={classes.backButton}>
-                  <Link to ='/dashboard/order' className={classes.linkStyle}>
-                      <Button variant="contained" color="primary">
-                    <ArrowBackIosIcon/>Back
-                      </Button>
-                </Link>
-                </div> 
-           </Paper > 
-
-      <div>
-           <Paper variant="outlined" elevation={5} className={classes.content}>
+  
+           <Grid  className={classes.content}>
            <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>Order details</Paper>
+          <Paper className={classes.paper}><h3>Order details</h3></Paper>
         </Grid>
        
         <Grid item xs={6} sm={3}>
           <Paper className={classes.paper}>Date </Paper>
       
         <Typography className={classes.title} color="textSecondary" >
-          {data.createdAt}
+          {moment( data.createdAt).format("Do MMMM YYYY, h:mm:ss a")}
         </Typography>
 
         
@@ -151,9 +144,22 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
         <Grid item xs={6} sm={3}>
           <Paper className={classes.paper}> Shipping </Paper>
           <Grid className={classes.titleContent}>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {data.shipping && data.shipping.line1}
-        </Typography>
+         
+        
+          {
+            data.shipping ? (
+              <div>
+              <Typography  color="textSecondary">Line1: {data.shipping.line1}</Typography>
+              <Typography  color="textSecondary">city: {data.shipping.city}</Typography>
+               <Typography  color="textSecondary">postCode: {data.shipping.postalCode}</Typography>
+              </div>
+            ) : (
+              <div>
+                 <Typography  color="textSecondary">N/A</Typography>
+              </div>
+            )
+          }
+      
         </Grid>
          
         </Grid>
@@ -175,29 +181,38 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
           ) : (
             <div>
                <InputLabel id="demo-controlled-open-select-label"></InputLabel>
-        <Select
+      
+          {
+            data.status === 'active'? (
+              <div>
+                  <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           value={status}
           onChange={handleChange}
         >
-          {/* {
-            data.status === 'active'? (
-              <div>
                  <MenuItem value='delivered'>Delivered</MenuItem>
-                   <MenuItem value='cancel'>Cancel</MenuItem>
+          </Select>   
               </div>
             ) : (
-              <div> */}
-              <MenuItem value='active'>Active</MenuItem>
-              <MenuItem value='delivered'>Delivered</MenuItem>
-              <MenuItem value='cancel'>Cancel</MenuItem>
-              {/* </div>
+              <div> 
+              <div>
+                  <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          value={status}
+          onChange={handleChange}
+        >
+                 <MenuItem value='active'>Active</MenuItem>
+          </Select>   
+              </div>
+        
+             </div>
             )
-          } */}
+          }
         
 
-        </Select>
+       
         <div>
         <Button variant="contained" onClick={()=>requestHandleStatus()} color="primary">Save
           </Button>
@@ -264,14 +279,14 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
       </Table>
     </TableContainer>
         </div>
-      </Paper> 
+        <Grid className={classes.signature}>
+            <Typography>**This is computer generated invoice,no signature required**</Typography>
+          </Grid>
+      </Grid> 
    
         
-        </div>
+     
    
-
-      
-        </div>
     )
 }
 export default RequestOrderDetails;

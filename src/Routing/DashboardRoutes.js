@@ -7,7 +7,7 @@ import ProductList from '../Components/Product/ProductList';
 import AddProduct from '../Components/Product/AddProduct';
 import EditProduct from '../Components/Product/EditProduct';
 import Order from '../Components/Order/index';
-import RequestOrderDetails from '../Components/Order/RequestOrderDetails'
+import OrderPrint from '../Components/Order/OrderPrint'
 import GetCategory from '../Components/Category/GetCategory'
 import CustomerList from '../Components/Customer/CustomerList';
 import CreateSale from '../Components/OfflineSale/CreateSale';
@@ -60,8 +60,8 @@ const DashboardRoutes = () => {
         />
          <Route
           exact
-          path="/dashboard/order-details/:id"
-          component={RequestOrderDetails}
+          path="/dashboard/order-details"
+          component={OrderPrint}
         />
           <Route
           exact

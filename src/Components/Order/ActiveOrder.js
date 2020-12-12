@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import moment from 'moment';
 import {Link} from 'react-router-dom';
 import {
@@ -18,7 +18,8 @@ import {
   Paper,
   makeStyles,
   } from '@material-ui/core';
- 
+
+import OrderContext from '../../context/OrderContext/OrderContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   }))
  const ActiveOrder = (props) => {
   const classes = useStyles()
+  const {getSingleOrder} = useContext(OrderContext)
   const activeOrder = props.activeOrder || []
   const [filteringStateColumnExtensions] = useState([
       { columnName: 'action', filteringEnabled: false },
@@ -69,7 +71,7 @@ const itemCount = (cartParameter)=>{
         address: order.shipping.line1,
         items: itemCount(order.cart),
         total: order.totalPrice,
-        view:( <Link className={classes.linkStyle} to={`/dashboard/order-details/${order._id}`}><Button variant="contained" size="small" color="primary">
+        view:( <Link className={classes.linkStyle} to="/dashboard/order-details/"><Button variant="contained" onClick={()=>getSingleOrder(order._id)} size="small" color="primary">
           View
         </Button> </Link>),
   

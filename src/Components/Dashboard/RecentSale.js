@@ -60,7 +60,7 @@ const RecentSale=({recentSale})=>{
         <TableBody>
           {recentSale.map((order,index) => (
             <TableRow key={index}>
-           <TableCell>{(moment(order.createdAt).format("MMMM Do YYYY"))}</TableCell>
+           <TableCell>{(moment(order.createdAt).format("Do MMMM YYYY, h:mm:ss a"))}</TableCell>
           <TableCell>{order.user && order.user.name}</TableCell>
               <TableCell>{order.shipping ? order.shipping.line1 : 'N/A'}</TableCell>
               <TableCell>{order.paymentId ? 'completed' : 'cash on delivery'}</TableCell>

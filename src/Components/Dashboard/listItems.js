@@ -7,6 +7,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import PersonIcon from '@material-ui/icons/Person';
+import CategoryIcon from '@material-ui/icons/Category';
 import BarChartIcon from '@material-ui/icons/BarChart';
 const linkStyle = {
   textDecoration: 'none',
@@ -34,7 +35,7 @@ export const mainListItems = (
     <Link to ='/dashboard/category' style={linkStyle}>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <CategoryIcon />
       </ListItemIcon>
       <ListItemText primary="Category" />
     </ListItem>
