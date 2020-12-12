@@ -181,20 +181,20 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
           value={status}
           onChange={handleChange}
         >
-          {
+          {/* {
             data.status === 'active'? (
               <div>
                  <MenuItem value='delivered'>Delivered</MenuItem>
                    <MenuItem value='cancel'>Cancel</MenuItem>
               </div>
             ) : (
-              <div>
+              <div> */}
               <MenuItem value='active'>Active</MenuItem>
               <MenuItem value='delivered'>Delivered</MenuItem>
               <MenuItem value='cancel'>Cancel</MenuItem>
-              </div>
+              {/* </div>
             )
-          }
+          } */}
         
 
         </Select>

@@ -60,7 +60,7 @@ useEffect(() => {
   }
 
   // eslint-disable-next-line
-},[localStorage.token])
+},[])
 
 const onSubmit = e =>{
   e.preventDefault();
