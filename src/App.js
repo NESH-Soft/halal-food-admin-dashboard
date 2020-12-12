@@ -35,8 +35,10 @@ function App() {
               <ReactNotification />
                 <Switch>
                   <Route exact  path="/" component={SignIn}/>
+                  <Route exact  path="/forgot" component={ForgotPassword}/>
                   <PrivateRoute exact  path="/info" component={Info}/>
                   <PrivateRoute exact  path="/dashboard" component={Dashboard}/>
+                  <Route exact  path="/reset/:token" component={ResetPassword}/>
                   <PrivateRoute exact  path="/dashboard/:comp" component={Dashboard}/>
                   <PrivateRoute exact  path="/dashboard/:comp/:cop" component={Dashboard}/>
                   

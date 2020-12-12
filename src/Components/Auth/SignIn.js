@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = (props) =>  {
   const authContext = useContext(AuthContext);
-  const { login, isAuthenticated,loadUser} = authContext;
+  const { login,loadUser} = authContext;
 
   const classes = useStyles();
 
@@ -53,12 +53,14 @@ const SignIn = (props) =>  {
 const {email,password}=formData
 
 useEffect(() => {
-  loadUser();
-  if(isAuthenticated){
+
+  if(localStorage.token){
+    loadUser()
     props.history.push('/dashboard');
   }
+
   // eslint-disable-next-line
-},[isAuthenticated])
+},[])
 
 const onSubmit = e =>{
   e.preventDefault();
@@ -124,11 +126,7 @@ const onChange = e => { setFormData({ ...formData,[e.target.name]:e.target.value
                 Forgot password?
               </Link>
             </Grid>
-            <Grid item>
-              <Link to="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
+
           </Grid>
         </form>
       </div>

@@ -7,7 +7,6 @@ import {
 import TotalProductCost from './TotalProductCost';
 import TotalSale from './TotalSale'
 import TotalCustomer from './TotalCustomer';
-import TotalDue from './TotalDue';
 import ProductContext from '../../../context/ProductContext/ProductContext';
 import OrderContext from '../../../context/OrderContext/OrderContext';
 import CustomerContext from '../../../context/CustomerContext/CustomerContext'
@@ -53,9 +52,7 @@ useEffect(()=>{
       <Grid item >
       <TotalCustomer totalCustomer={totalCustomer} />
       </Grid>
-      {/* <Grid item >
-      <TotalDue totalDue={saleInfo}/>
-      </Grid> */}
+    
   
     </Grid>
   </div>

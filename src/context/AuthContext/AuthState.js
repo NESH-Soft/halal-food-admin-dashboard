@@ -32,7 +32,8 @@ const loadUser = async () => {
       const res = await axios.get('/api/admin');
       dispatch({ type: LOAD_USER, payload: res.data })
     } catch (err) {
-     notificationHandle('something went wrong',"danger",1000)
+      
+      notificationHandle(err.response.data.msg,"danger",1000)
   }
 }
 }
@@ -48,6 +49,7 @@ try{
   loadUser();
   notificationHandle("Login success","success",1000)
 }catch (err){
+
 notificationHandle(err.response.data.msg,"danger",1000)
 }
 
@@ -87,9 +89,9 @@ const changePassword = async data=>{
 try{
     const res=await axios.put('/api/admin/change-password',data,config)
     dispatch({type:CHANGE_PASSWORD,payload:res.data})  
-   
+    notificationHandle("Update success","success",1000)
 }catch (err){ 
- console.log(err)
+  notificationHandle(err.response.data.msg,"danger",1000)
 }
 }
 
@@ -99,10 +101,10 @@ const forgoRequest = async (data) =>{
   const config={ header:{'Content-Type':'application/json' }}
   try{
       const res=await axios.post('/api/admin/forgot',data,config)
-      dispatch({ type: FORGOT_REQUEST, payload:res.data })   
-        
+      dispatch({ type: FORGOT_REQUEST, payload:res.data })
+      notificationHandle("forgot success check your email","success",1000)     
   }catch (err){ 
-   console.log(err)
+    notificationHandle(err.response.data.msg,"danger",18000)
   }
 
 }
@@ -116,10 +118,11 @@ const resetPassword = async (data)=>{
       dispatch({
       type: RESET_PASSWORD,
       payload:res.data,
-      })  
+      })
+      notificationHandle("Reset success","success",1000)  
       loadUser()     
   }catch (err){ 
-   console.log(err)
+    notificationHandle(err.response.data.msg,"danger",1000)
   }
 
 }

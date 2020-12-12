@@ -7,9 +7,7 @@ import CategoryReducer from '../CategoryContext/CategoryReducer';
 import {
  GET_CATEGORY,
  ADD_CATEGORY,
- ADD_SUB_CATEGORY,
  DELETE_CATEGORY,
- DELETE_SUB_CATEGORY
 } from '../type'
 
 const CategoryState=(props)=> {
@@ -47,7 +45,7 @@ const addSubCategory = async data => {
   const s = {name:data.name}
       const config = { headers: { 'Content-type': 'application/json' }};
       try {
-        const res= await axios.put(`/api/category/${data._id}`, s, config)
+      await axios.put(`/api/category/${data._id}`, s, config)
         getCategory()
         notificationHandle("Added success","success",1000)
         // dispatch({ type: ADD_SUB_CATEGORY, payload:res.data });
@@ -67,9 +65,9 @@ const deleteCategory = async (id)=>{
 
 const deleteSubCategory = async (catCatId,subCatId)=>{
       try{
-        console.log(catCatId,subCatId)
-          const res=await axios.put(`/api/category/subcategory-delete/${catCatId}/${subCatId}`)
-          console.log(res)
+        
+        await axios.put(`/api/category/subcategory-delete/${catCatId}/${subCatId}`)
+       
           getCategory()
           notificationHandle("delete success","danger",1000)
           // dispatch({ type:DELETE_SUB_CATEGORY, payload:res.data });

@@ -6,9 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Button,Paper,makeStyles,TextField,Typography, Grid} from '@material-ui/core';
+import { Button,Paper,makeStyles,TextField, Grid} from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import Modal from '@material-ui/core/Modal';
 import CategoryContext from '../../context/CategoryContext/CategoryContext'

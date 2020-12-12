@@ -52,7 +52,8 @@ const  AddProduct = (props) => {
   const { uploadProduct, success } = useContext(ProductContext)
   const classes = useStyles();
 useEffect(()=>{
-  getCategory()
+  getCategory();
+  // eslint-disable-next-line
 },[])
 
   const [formData, setFormData]=useState({
@@ -255,6 +256,7 @@ return (
          
           <MenuItem value='regular'>Regular</MenuItem>
           <MenuItem value='special'>Special</MenuItem>
+          <MenuItem value='special'>Latest</MenuItem>
           
         </Select>
       </FormControl>

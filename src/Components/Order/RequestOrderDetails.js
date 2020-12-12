@@ -1,8 +1,6 @@
-import React,{useEffect, useContext} from 'react'
-import Skeleton from '@material-ui/lab/Skeleton';
+import React,{ useContext} from 'react'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,9 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import {Link} from 'react-router-dom'
 import { Button,Paper,makeStyles,Typography,Grid} from '@material-ui/core';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import moment from 'moment';
 import OrderContext from '../../context/OrderContext/OrderContext'
 
 
@@ -39,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
     },
 
     content:{
-   
-       flexGrow: 1,
+     margin:"5px",
+     padding:"20px",
+      flexGrow: 1,
        textAlign: 'center',
 
     overflow: 'auto',
@@ -57,13 +55,16 @@ const useStyles = makeStyles((theme) => ({
     table: {
       minWidth: 700,
     },
+    signature:{
+      textAlign:'center',
+      paddingTop:'5%'
+    }
    
   }))
 
 
-const RequestOrderDetails = (props) => {
-console.log(props.match.params.id)
-const {getSingleOrder,singleOrder, changeOrderStatus} = useContext(OrderContext)
+const RequestOrderDetails = () => {
+const {singleOrder, changeOrderStatus} = useContext(OrderContext)
 const data = singleOrder[0] || []
 const s = data.status
 const _id = data._id
@@ -81,10 +82,10 @@ const totalPrice = BalanceArray.reduce(function(accumulator, currentValue) {
 
     const classes = useStyles()
     const [status, setStatus] = React.useState(s);
-console.log(s,'s')
-    useEffect(()=>{
-      getSingleOrder(props.match.params.id)
-    },[])
+    // useEffect(()=>{
+    //   getSingleOrder(props.match.params.id)
+    //   // eslint-disable-next-line
+    // },[])
 
   
     const handleChange = (event) => {
@@ -98,34 +99,23 @@ console.log(s,'s')
       }
       const da = {_id,status}
       changeOrderStatus(da)
-      console.log(da)
+   
     }
  
 
     return (
-        <div>
-          <Paper variant="outlined" square  className={classes.tittle}> 
-                  <div className={classes.backButton}>
-                  <Link to ='/dashboard' className={classes.linkStyle}>
-                      <Button variant="contained" color="primary">
-                    <ArrowBackIosIcon/>Back
-                      </Button>
-                </Link>
-                </div> 
-           </Paper > 
-
-      <div>
-           <Paper variant="outlined" elevation={5} className={classes.content}>
+  
+           <Grid  className={classes.content}>
            <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>Order details</Paper>
+          <Paper className={classes.paper}><h3>Order details</h3></Paper>
         </Grid>
        
         <Grid item xs={6} sm={3}>
           <Paper className={classes.paper}>Date </Paper>
       
         <Typography className={classes.title} color="textSecondary" >
-          {data.createdAt}
+          {moment( data.createdAt).format("Do MMMM YYYY, h:mm:ss a")}
         </Typography>
 
         
@@ -154,32 +144,95 @@ console.log(s,'s')
         <Grid item xs={6} sm={3}>
           <Paper className={classes.paper}> Shipping </Paper>
           <Grid className={classes.titleContent}>
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {data.shipping && data.shipping.line1}
-        </Typography>
+         
+        
+          {
+            data.shipping ? (
+              <div>
+              <Typography  color="textSecondary">Line1: {data.shipping.line1}</Typography>
+              <Typography  color="textSecondary">city: {data.shipping.city}</Typography>
+               <Typography  color="textSecondary">postCode: {data.shipping.postalCode}</Typography>
+              </div>
+            ) : (
+              <div>
+                 <Typography  color="textSecondary">N/A</Typography>
+              </div>
+            )
+          }
+      
         </Grid>
          
         </Grid>
+
+
+
         <Grid item xs={6} sm={3}>
+
           <Paper className={classes.paper}>Status</Paper>
           <Grid className={classes.titleContent}>
-        <InputLabel id="demo-controlled-open-select-label">{data.status}</InputLabel>
-        <Select
+            {data.status}
+  
+      <div>
+      {
+          data.status === 'delivered' || data.status === 'offlineSale' ? (
+            <div>
+
+            </div>
+          ) : (
+            <div>
+               <InputLabel id="demo-controlled-open-select-label"></InputLabel>
+      
+          {
+            data.status === 'active'? (
+              <div>
+                  <Select
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           value={status}
           onChange={handleChange}
         >
-          
-          <MenuItem value='active'>Active</MenuItem>
-          <MenuItem value='delivered'>Delivered</MenuItem>
-          <MenuItem value='cancel'>Cancel</MenuItem>
-        </Select>
-   
-        </Grid>
+                 <MenuItem value='delivered'>Delivered</MenuItem>
+          </Select>   
+              </div>
+            ) : (
+              <div> 
+              <div>
+                  <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          value={status}
+          onChange={handleChange}
+        >
+                 <MenuItem value='active'>Active</MenuItem>
+          </Select>   
+              </div>
+        
+             </div>
+            )
+          }
+        
+
+       
+        <div>
         <Button variant="contained" onClick={()=>requestHandleStatus()} color="primary">Save
           </Button>
+        </div>
+              
+            </div>
+          )
+      }
+      </div>
+
+     
+       
+
+   
         </Grid>
+     
+        </Grid>
+
+
+
       </Grid>
 
       <div>
@@ -226,14 +279,14 @@ console.log(s,'s')
       </Table>
     </TableContainer>
         </div>
-      </Paper> 
+        <Grid className={classes.signature}>
+            <Typography>**This is computer generated invoice,no signature required**</Typography>
+          </Grid>
+      </Grid> 
    
         
-        </div>
+     
    
-
-      
-        </div>
     )
 }
 export default RequestOrderDetails;

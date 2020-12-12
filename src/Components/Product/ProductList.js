@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   }))
  const ProductList = () => {
 
-  const { products, getProducts,deleteProduct,editFormFun,serverMessage } = useContext(ProductContext);
+  const { products, getProducts,deleteProduct,editFormFun } = useContext(ProductContext);
 
     const classes = useStyles()
 
@@ -150,17 +150,7 @@ const useStyles = makeStyles((theme) => ({
       }
     })
   
-    const [defaultColumnWidths] = useState([
-      { columnName: 'sl', width: 50 },
-      { columnName: 'name', width: 150 },
-      { columnName: 'image', width: '5rem'},
-      { columnName: 'price', width: 90 },
-      { columnName: 'specialPrice', width: 100 },
-      { columnName: 'stock', width: 100 },
-      { columnName: 'category', width: 150  },
-      { columnName: 'createdAt', width: 150  },
-      { columnName: 'action', width: 100 },
-    ]);
+  
 
     return (
         <div>

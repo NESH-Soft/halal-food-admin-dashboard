@@ -122,6 +122,7 @@ const clearSuccess=()=>{
           editFormFun,
           clearEditForm,
           deleteProduct,
+          clearProductState
         
     }}>
       {props.children}
