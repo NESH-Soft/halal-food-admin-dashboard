@@ -7,6 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Button,Paper,makeStyles,TextField, Grid} from '@material-ui/core';
+import Popper from '@material-ui/core/Popper';
+import Fade from '@material-ui/core/Fade';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Chip from '@material-ui/core/Chip';
 import Modal from '@material-ui/core/Modal';
@@ -28,10 +30,10 @@ function getModalStyle() {
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+  root: {
       flexGrow: 1,
     },
-    tittle: {
+  tittle: {
       height: 60,
       padding:0,
       margin:0,
@@ -41,31 +43,28 @@ const useStyles = makeStyles((theme) => ({
       padding:5,
     },
 
-    content:{
-       margin:8,
-      //  paddingTop:'13%',
-      //  flexGrow: 1,
-      //  textAlign: 'center',
-    height: '77vh',
-    overflow: 'auto',
+  content:{
+      margin:8,
+      height: '77vh',
+      overflow: 'auto',
     },
-    table: {
+  table: {
       minWidth: 300,
       
     },
-    addCategoryStyle:{
+ addCategoryStyle:{
       textAlign:"center"
     },
-    linkStyle:{
+  linkStyle:{
       textDecoration: 'none',
       color: 'white'
     },
-    spinner: {
+  spinner: {
       textAlign: 'center',
       marginTop:'15%'
     
     },
-    modalBox: {
+  modalBox: {
       position: 'absolute',
       width: 400,
       backgroundColor: theme.palette.background.paper,
@@ -73,21 +72,58 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
-  
+  deleteContent:{
+      border: '1px solid',
+      padding: theme.spacing(1),
+      backgroundColor: theme.palette.background.paper,
+    },
+  deleteContentMiddle:{
+      display:'flex',
+    },
+  deleteContentSpace:{
+      paddingRight:6
+    }
    
   }))
- const UpCoaming = () => {
+const UpCoaming = () => {
   const classes = useStyles()
   const {getCategory,allCategory,addCategory,addSubCategory,deleteCategory,deleteSubCategory} = useContext(CategoryContext)
   useEffect(()=>{
     getCategory()
     // eslint-disable-next-line
   },[])
-  const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
+  
+const [modalStyle] = React.useState(getModalStyle);
+const [open, setOpen] = React.useState(false);
 const [category,setCategory]= useState('')
 const [subCategory,setSubCategory]= useState('')
 const [categoryId,setCategoryId]= useState('')
+const [anchorEl, setAnchorEl] = React.useState(null);
+const [deleteId, setDeleteId] = React.useState(null);
+
+
+
+const handleClick = (_id,event) => {
+  setAnchorEl(anchorEl ? null : event.currentTarget);
+  setDeleteId(_id);
+};
+
+const openAncor = Boolean(anchorEl);
+const id = openAncor ? 'transitions-popper' : undefined;
+
+
+// handle open modal for add sub category 
+const handleOpen = (id) => {
+  setOpen(true);
+  setCategoryId(id)
+
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
+
+
 
 const handleAddCategory = () => {
   addCategory({name:category})
@@ -96,7 +132,6 @@ const handleAddCategory = () => {
 
 const handleAddSubCategory = () => {
   addSubCategory({_id:categoryId, name:subCategory})
-  console.log({_id:categoryId, name:subCategory})
   setSubCategory('')
   setCategoryId('')
   setOpen(false);
@@ -104,29 +139,19 @@ const handleAddSubCategory = () => {
 };
 
 
-  const handleDelete = (id) => {
-    deleteCategory(id)
-  };
-  const handleSubCategoryDelete = (catId,subCatId) => {
+// handle delete category
+const handleDelete= () => {
+  deleteCategory(deleteId)
+  handleClick()
+}
+
+// handle delete subcategory category
+const handleSubCategoryDelete = (catId,subCatId) => {
     deleteSubCategory(catId,subCatId)
   };
-  
 
- 
-
- 
-
-  const handleOpen = (id) => {
-    setOpen(true);
-    setCategoryId(id)
- 
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const body = (
+// modal body  
+const body = (
     <div style={modalStyle} className={classes.modalBox}>
       <h2 id="simple-modal-title">Create Sub Create</h2>
       <Grid className={classes.addCategoryStyle} >
@@ -145,55 +170,82 @@ const handleAddSubCategory = () => {
                   </Grid>
                       
                   <Grid>
-                      <Button variant="contained"size="small" onClick={handleAddSubCategory} color="primary" >Add</Button>
-                    </Grid>
-                      
-                </Grid>
+                      <Button 
+                      variant="contained"
+                      size="small" 
+                      onClick={handleAddSubCategory} 
+                      color="primary" >Add</Button>
+                  </Grid>         
+      </Grid>
    
     </div>
   );
 
- 
 
     return (
-   
-   
-        <div>
-          <Paper variant="outlined" square  className={classes.tittle}> 
-                  <div className={classes.backButton}>
-                  <Link to ='/dashboard' className={classes.linkStyle}>
-                      <Button variant="contained" color="primary">
-                    <ArrowBackIosIcon/>Back
+    <div>
+    <Paper variant="outlined" square  className={classes.tittle}> 
+      <div className={classes.backButton}>
+                <Link to ='/dashboard' className={classes.linkStyle}>
+                <Button 
+                variant="contained" 
+                color="primary">
+                <ArrowBackIosIcon/>Back
+                </Button>
+               </Link>
+      </div> 
+    </Paper > 
+
+
+    <div style={{marginLeft:"25%"}}>
+    <Grid className={classes.addCategoryStyle} >
+
+            <Grid item xs={12} sm={6}>
+                <TextField
+                size="small"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Create new category"
+                name="category"
+                value={category}
+                onChange={(e)=>setCategory(e.target.value)}
+                />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+                <Button 
+                variant="contained" 
+                size="small" 
+                onClick={handleAddCategory}
+                color="primary">Add</Button>
+            </Grid>
+   </Grid>
+  </div>
+
+    <div>
+    <Paper variant="outlined" elevation={5} className={classes.content}>
+    <Popper id={id} open={openAncor} anchorEl={anchorEl} transition>
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <div className={classes.deleteContent}>
+              are you want to delete?
+              <div className={classes.deleteContentMiddle}>
+            <div className={classes.deleteContentSpace}>  <Button  size="small" aria-describedby={id} onClick={handleClick} variant="contained" color="primary">
+                    No
                       </Button>
-                </Link>
-                </div> 
-           </Paper > 
-
-           <div style={{marginLeft:"25%"}}>
-           <Grid className={classes.addCategoryStyle} >
-
-<Grid item xs={12} sm={6}>
-<TextField
-  size="small"
-  variant="outlined"
-  margin="normal"
-  required
-  fullWidth
-  label="Create new category"
-  name="category"
-  value={category}
-  onChange={(e)=>setCategory(e.target.value)}
-  />
-</Grid>
-<Grid item xs={12} sm={6}>
-<Button variant="contained" size="small" onClick={handleAddCategory} color="primary">Add</Button>
-</Grid>
-</Grid>
-           </div>
-
-      <div>
-           <Paper variant="outlined" elevation={5} className={classes.content}>
-
+                </div>
+                <div>  <Button size="small" aria-describedby={id} variant="contained" onClick={() => handleDelete()} color="primary">
+                    Yes
+                      </Button>
+                </div>
+                </div>
+            </div>
+           
+          </Fade>
+        )}
+      </Popper>
 
    
            <TableContainer component={Paper}>
@@ -215,16 +267,16 @@ const handleAddSubCategory = () => {
               label={category.name}
               clickable
               color="primary"
-              onDelete={()=>handleDelete(category._id)} 
+              onDelete={(event)=>handleClick(category._id,event)} 
              />
-              
+            
             </Grid>
      
            </TableCell>
    
               <TableCell align="center">
             
-              <Button variant="contained" size="small" onClick={()=>handleOpen(category._id)} color="primary" >
+            <Button variant="contained" size="small" onClick={()=>handleOpen(category._id)} color="primary" >
               Add sub
             </Button>
 
@@ -241,16 +293,12 @@ const handleAddSubCategory = () => {
                 label={sub.name}
                 clickable
                 color="primary"
-                onDelete={()=>handleSubCategoryDelete(category._id,sub._id)}
-                
-              />
+                onDelete={()=>handleSubCategoryDelete(category._id,sub._id)} 
+                />
              
-            
-
                ))}
                  
-            
-    
+          
               </TableCell>
             </TableRow>
           ))
