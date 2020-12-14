@@ -1,5 +1,6 @@
 import React,{useReducer} from 'react';
 import axios from 'axios';
+import BaseUrl from '../../utils/BaseUrl'
 import notificationHandle from '../../utils/notificationHandle';
 import OrderContext from '../OrderContext/OrderContext';
 import OrderReducer from '../OrderContext/OrderReducer';
@@ -37,7 +38,7 @@ const [state,dispatch]=useReducer(OrderReducer,initialState)
 //  get all product
 const getOrders = async () => {
 try{
-  const res = await axios.get('/api/order/orders')
+  const res = await axios.get(`${BaseUrl}/api/order/orders`)
     dispatch({ type: GET_ORDERS, payload: res.data })
 
 }catch (err) {  
@@ -56,7 +57,7 @@ try{
   const changeOrderStatus = async (data) => {
     const config={ header:{'Content-Type':'application/json'}}
         try{
-          const res = await axios.put(`/api/order/change-order-status/${data._id}`,data,config)
+          const res = await axios.put(`${BaseUrl}/api/order/change-order-status/${data._id}`,data,config)
           console.log(res.data)
           // dispatch({ type: GET_SINGLE_ORDER, payload: res.data})
           getOrders()
@@ -68,7 +69,7 @@ try{
   const createOfflineSale = async (data) => {
          const config={ header:{'Content-Type':'application/json'}}
               try{
-                const res = await axios.post('/api/order/offline-sale',data,config)
+                const res = await axios.post(`${BaseUrl}/api/order/offline-sale`,data,config)
                 console.log(res.data)
                 // dispatch({ type: GET_SINGLE_ORDER, payload: res.data})
                 getOrders()
@@ -108,7 +109,7 @@ try{
   //  get all sales info by user
   const getAllSaleInfo = async () => {
     try{
-      const res = await axios.get('/api/order/order-info')
+      const res = await axios.get(`${BaseUrl}/api/order/order-info`)
         dispatch({ type: GET_SALE_INFO, payload: res.data })
       
     }catch (err) {  
@@ -119,7 +120,7 @@ try{
     //  get recent info by user
     const getRecentSale = async () => {
       try{
-        const res = await axios.get('/api/order/recent')
+        const res = await axios.get(`${BaseUrl}/api/order/recent`)
           dispatch({ type: GET_RECENT_SALE, payload: res.data })
        
       }catch (err) {  
@@ -129,7 +130,7 @@ try{
     //  get recent info by day
     const getOrderInfoByDay = async (day) => {
       try{
-        const res = await axios.get(`/api/order/day?day=${day}`)
+        const res = await axios.get(`${BaseUrl}/api/order/day?day=${day}`)
           dispatch({ type: GET_SALE_INFO_BY_DAY, payload: res.data })
         
       }catch (err) {  
@@ -139,7 +140,7 @@ try{
     //  get recent info by day
     const getTodayOrder = async () => {
       try{
-        const res = await axios.get('/api/order/today')
+        const res = await axios.get(`${BaseUrl}/api/order/today`)
           dispatch({ type: GET_TODAY_SALE, payload: res.data })
         
       }catch (err) {  

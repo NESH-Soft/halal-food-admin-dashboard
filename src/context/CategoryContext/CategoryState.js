@@ -1,5 +1,6 @@
 import React,{useReducer} from 'react';
 import axios from 'axios';
+import BaseUrl from '../../utils/BaseUrl'
 import notificationHandle from '../../utils/notificationHandle'
 import CategoryContext from '../CategoryContext/CategoryContext';
 import CategoryReducer from '../CategoryContext/CategoryReducer';
@@ -21,7 +22,7 @@ const [state,dispatch]=useReducer(CategoryReducer,initialState)
 //  get all category
 const getCategory = async () => {
 try{
-  const res = await axios.get('/api/category')
+  const res = await axios.get(`${BaseUrl}/api/category`)
     dispatch({ type: GET_CATEGORY, payload: res.data })
 
 }catch (err) {  
@@ -30,10 +31,10 @@ try{
   }}
 
 const addCategory = async data => {
-  console.log(data)
+ 
     const config = { headers: { 'Content-type': 'application/json' }};
     try {
-      const res= await axios.post('/api/category', data, config)
+      const res= await axios.post(`${BaseUrl}/api/category`, data, config)
       dispatch({ type: ADD_CATEGORY, payload:res.data });
       notificationHandle("Added success","success",1000)
     } catch (err) {  
@@ -45,7 +46,7 @@ const addSubCategory = async data => {
   const s = {name:data.name}
       const config = { headers: { 'Content-type': 'application/json' }};
       try {
-      await axios.put(`/api/category/${data._id}`, s, config)
+      await axios.put(`${BaseUrl}/api/category/${data._id}`, s, config)
         getCategory()
         notificationHandle("Added success","success",1000)
         // dispatch({ type: ADD_SUB_CATEGORY, payload:res.data });
@@ -56,7 +57,7 @@ const addSubCategory = async data => {
       // Delete Invoice
 const deleteCategory = async (id)=>{
   try{
-      const res=await axios.delete(`/api/category/${id}`)
+      const res=await axios.delete(`${BaseUrl}/api/category/${id}`)
       dispatch({ type:DELETE_CATEGORY, payload:res.data });
       notificationHandle("delete success","danger",1000)
   }catch (err){  
@@ -66,7 +67,7 @@ const deleteCategory = async (id)=>{
 const deleteSubCategory = async (catCatId,subCatId)=>{
       try{
         
-        await axios.put(`/api/category/subcategory-delete/${catCatId}/${subCatId}`)
+        await axios.put(`${BaseUrl}/api/category/subcategory-delete/${catCatId}/${subCatId}`)
        
           getCategory()
           notificationHandle("delete success","danger",1000)

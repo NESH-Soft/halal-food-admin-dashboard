@@ -1,5 +1,6 @@
 import React,{useReducer} from 'react';
 import axios from 'axios';
+import BaseUrl from '../../utils/BaseUrl'
 import CustomerContext from '../CustomerContext/CustomerContext';
 import CustomerReducer from '../CustomerContext/CustomerReducer';
 
@@ -23,7 +24,7 @@ const [state,dispatch]=useReducer(CustomerReducer,initialState)
 //  get all customer 
 const getCustomers = async () => {
 try{
-  const res = await axios.get('/api/user/all-user')
+  const res = await axios.get(`${BaseUrl}/api/user/all-user`)
     dispatch({ type: GET_CUSTOMERS, payload: res.data })
 
 }catch (err) {  
@@ -33,7 +34,7 @@ try{
   //  get customer 
 const getCustomer = async (id) => {
   try{
-    const res = await axios.get(`/api/all-user/${id}`)
+    const res = await axios.get(`${BaseUrl}/api/all-user/${id}`)
       dispatch({ type: GET_CUSTOMER, payload: res.data })
 
   }catch (err) {  
@@ -45,7 +46,7 @@ const getCustomer = async (id) => {
       //  get all info 
 const getTotalCustomer = async () => {
   try{
-    const res = await axios.get('/api/user/info')
+    const res = await axios.get(`${BaseUrl}/api/user/info`)
       dispatch({ type: GET_TOTAL_CUSTOMER, payload: res.data })
   
   }catch (err) {  
