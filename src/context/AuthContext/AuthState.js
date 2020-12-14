@@ -42,7 +42,7 @@ const loadUser = async () => {
 
 //Login   
 const login = async data=>{
-const config = { header:{ 'Content-Type':'application/json' } }
+const config = { header:{ 'Content-Type':'application/json',"Access-Control-Allow-Origin": "*", } }
 try{
   const res = await axios.post('/api/admin/login', data, config)
   dispatch({ type: SUCCESS_LOGIN, payload: res.data });
