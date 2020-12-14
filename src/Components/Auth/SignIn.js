@@ -53,9 +53,8 @@ const SignIn = (props) =>  {
 const {email,password}=formData
 
 useEffect(() => {
-
-  if(isAuthenticated ||localStorage.token){
-    loadUser()
+  loadUser()
+  if(isAuthenticated){
     props.history.push('/dashboard');
   }
 
