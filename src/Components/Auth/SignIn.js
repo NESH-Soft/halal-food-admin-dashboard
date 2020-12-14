@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = (props) =>  {
   const authContext = useContext(AuthContext);
-  const { login,loadUser} = authContext;
+  const { login,loadUser, isAuthenticated} = authContext;
 
   const classes = useStyles();
 
@@ -54,13 +54,13 @@ const {email,password}=formData
 
 useEffect(() => {
 
-  if(localStorage.token){
+  if(isAuthenticated ||localStorage.token){
     loadUser()
     props.history.push('/dashboard');
   }
 
   // eslint-disable-next-line
-},[])
+},[isAuthenticated])
 
 const onSubmit = e =>{
   e.preventDefault();
