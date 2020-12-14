@@ -1,5 +1,6 @@
 import React,{useReducer} from 'react';
 import axios from 'axios';
+import BaseUrl from '../../utils/BaseUrl'
 import notificationHandle from '../../utils/notificationHandle';
 import ProductContext from '../ProductContext/ProductContext';
 import ProductReducer from '../ProductContext/ProductReducer';
@@ -30,7 +31,7 @@ const [state,dispatch]=useReducer(ProductReducer,initialState)
 //  get all product
 const getProducts = async () => {
 try{
-  const res = await axios.get('/api/product')
+  const res = await axios.get(`${BaseUrl}/api/product`)
     dispatch({ type: GET_PRODUCT, payload: res.data })
 }catch (err) {  
    console.log(err)
@@ -42,7 +43,7 @@ const uploadProduct= async data=>{
     Object.keys(data).forEach(key => formData.append(key, data[key]));
     const config = { headers: { 'Content-type': 'multipart/form-data' }};
 try{
-    const res= await axios.post('/api/product',formData,config)
+    const res= await axios.post(`${BaseUrl}/api/product`,formData,config)
     dispatch({ type:UPLOAD_PRODUCT, payload:res.data });
     notificationHandle("Upload success","success",1000)
     clearSuccess()
@@ -55,7 +56,7 @@ try{
 // delete product
 const deleteProduct = async (id)=>{
 try{
-    const res=await axios.delete(`/api/product/${id}`)
+    const res=await axios.delete(`${BaseUrl}/api/product/${id}`)
     dispatch({ type:DELETE_PRODUCT, payload:res.data });
     notificationHandle("delete success","danger",1000)
 }catch (err){  
@@ -67,7 +68,7 @@ try{
 const updateProduct=async(product)=>{
   const config={ header:{'Content-Type':'application/json'}}
 try {
-  const res=await axios.put(`/api/product/${product._id}`,product,config)
+  const res=await axios.put(`${BaseUrl}/api/product/${product._id}`,product,config)
   dispatch({ type:UPDATE_PRODUCT, payload:res.data });
   notificationHandle("Update success","success",1000)
     } catch (err) {
@@ -78,7 +79,7 @@ try {
   //  get all info 
 const getAllProductInfo = async () => {
   try{
-    const res = await axios.get('/api/product/product-info')
+    const res = await axios.get(`${BaseUrl}/api/product/product-info`)
       dispatch({ type: GET_PRODUCT_INFO, payload: res.data })
 
   }catch (err) {  

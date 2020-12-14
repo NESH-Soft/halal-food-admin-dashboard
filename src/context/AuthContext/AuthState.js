@@ -1,5 +1,6 @@
 import React,{useReducer} from 'react';
 import axios from 'axios';
+import BaseUrl from '../../utils/BaseUrl'
 import AuthContext from '../AuthContext/AuthContext';
 import AuthReducer from '../AuthContext/AuthReducer';
 import setAuthToken from '../../utils/setAuthToken';
@@ -29,7 +30,7 @@ const loadUser = async () => {
   if(localStorage.token){
     setAuthToken(localStorage.token);
     try {
-      const res = await axios.get('https://halal-food.herokuapp.com/api/admin');
+      const res = await axios.get(`${BaseUrl}/api/admin`);
       dispatch({ type: LOAD_USER, payload: res.data })
     } catch (err) {
       
@@ -44,7 +45,7 @@ const loadUser = async () => {
 const login = async data=>{
 const config = { header:{ 'Content-Type':'application/json',"Access-Control-Allow-Origin": "*", } }
 try{
-  const res = await axios.post('https://halal-food.herokuapp.com/api/admin/login', data, config)
+  const res = await axios.post(`${BaseUrl}/api/admin/login`, data, config)
   dispatch({ type: SUCCESS_LOGIN, payload: res.data });
   loadUser();
   notificationHandle("Login success","success",1000)
@@ -62,7 +63,7 @@ const deleteUser = async (data)=>{
   const config={ header:{'Content-Type':'application/json' }} 
 
   try{
-        const res=await axios.post('/api/admin/delete',data,config)
+        const res=await axios.post(`${BaseUrl}/api/admin/delete`,data,config)
         dispatch({ type:DELETE_USER, payload:res.data });
     
   }catch (err){  
@@ -75,7 +76,7 @@ const updateUser = async(user)=>{
 const config={ header:{'Content-Type':'application/json' }}
 
   try {  
-    const res=await axios.put(`/api/admin/update/${user._id}`,user,config)
+    const res=await axios.put(`${BaseUrl}/api/admin/update/${user._id}`,user,config)
       dispatch({ type:UPDATE_USER, payload:res.data }) 
       notificationHandle("Update success","success",1000)
   } catch (err) {
@@ -87,7 +88,7 @@ const config={ header:{'Content-Type':'application/json' }}
 const changePassword = async data=>{
   const config={ header:{'Content-Type':'application/json' }}
 try{
-    const res=await axios.put('/api/admin/change-password',data,config)
+    const res=await axios.put(`${BaseUrl}/api/admin/change-password`,data,config)
     dispatch({type:CHANGE_PASSWORD,payload:res.data})  
     notificationHandle("Update success","success",1000)
 }catch (err){ 
@@ -100,7 +101,7 @@ try{
 const forgoRequest = async (data) =>{
   const config={ header:{'Content-Type':'application/json' }}
   try{
-      const res=await axios.post('/api/admin/forgot',data,config)
+      const res=await axios.post(`${BaseUrl}/api/admin/forgot`,data,config)
       dispatch({ type: FORGOT_REQUEST, payload:res.data })
       notificationHandle("forgot success check your email","success",1000)     
   }catch (err){ 
@@ -114,7 +115,7 @@ const forgoRequest = async (data) =>{
 const resetPassword = async (data)=>{
   const config={ header:{'Content-Type':'application/json' }}
   try{
-      const res=await axios.post(`/api/admin/reset/${data.token}`,{newPassword:data.newPassword,confirmPassword: data.confirmPassword },config)
+      const res=await axios.post(`${BaseUrl}/api/admin/reset/${data.token}`,{newPassword:data.newPassword,confirmPassword: data.confirmPassword },config)
       dispatch({
       type: RESET_PASSWORD,
       payload:res.data,
