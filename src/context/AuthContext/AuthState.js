@@ -29,7 +29,7 @@ const loadUser = async () => {
   if(localStorage.token){
     setAuthToken(localStorage.token);
     try {
-      const res = await axios.get('/api/admin');
+      const res = await axios.get('https://halal-food.herokuapp.com/api/admin');
       dispatch({ type: LOAD_USER, payload: res.data })
     } catch (err) {
       
@@ -44,7 +44,7 @@ const loadUser = async () => {
 const login = async data=>{
 const config = { header:{ 'Content-Type':'application/json',"Access-Control-Allow-Origin": "*", } }
 try{
-  const res = await axios.post('/api/admin/login', data, config)
+  const res = await axios.post('https://halal-food.herokuapp.com/api/admin/login', data, config)
   dispatch({ type: SUCCESS_LOGIN, payload: res.data });
   loadUser();
   notificationHandle("Login success","success",1000)
