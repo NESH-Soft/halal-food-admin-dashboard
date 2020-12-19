@@ -196,6 +196,7 @@ return (
           labelId="demo-simple-select-outlined-label"
           label="Category"
           name="category"
+          defaultValue={category}
           onChange={handleSelect}
           required
           
@@ -220,7 +221,7 @@ return (
           labelId="demo-simple-select-outlined-label"
           label="Sub Category"
           name="subCategory"
-          value={subCategory}
+          defaultValue={subCategory}
           onChange={(e)=>setSubCategory(e.target.value)} 
         >
          
@@ -244,14 +245,17 @@ return (
           labelId="demo-simple-select-outlined-label"
           label="Product Type"
           name="productType"
-          value={productType}
+          defaultValue={productType}
           onChange={e=> onChange(e)}
           required
           
         >
          
-          <MenuItem value='regular'>Regular</MenuItem>
+            
+         <MenuItem value='regular'>Regular</MenuItem>
           <MenuItem value='special'>Special</MenuItem>
+          <MenuItem value='latest'>Latest</MenuItem>
+          <MenuItem value='homePageProduct'>Home Page</MenuItem>
           
         </Select>
       </FormControl>

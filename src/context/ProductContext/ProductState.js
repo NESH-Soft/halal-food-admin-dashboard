@@ -99,7 +99,7 @@ const clearEditForm=()=>{
 const clearSuccess=()=>{
   setTimeout(()=>(
     dispatch({ type:CLEAR_SUCCESS }) 
-  ),500)
+  ),200)
  
 }
 
